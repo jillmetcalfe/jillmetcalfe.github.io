@@ -2,6 +2,7 @@ baseURL = 'https://jillmetcalfe.github.io/'
 languageCode = 'en-us'
 title = 'jillmetcalfe.com'
 theme = "ananke"
+publishDir = "docs"
 
 #
 #resourceDir = "../resources"
