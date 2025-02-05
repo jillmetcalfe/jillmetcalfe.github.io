@@ -26,5 +26,7 @@ jobs:
         with:
           ssh_key: ${{ secrets.ACTIONS_DEPLOY_SSH_KEY }}
           publish_dir: ./public
+          branch: main
+          
 
 
