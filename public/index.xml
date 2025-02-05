@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jillmetcalfe.com</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on jillmetcalfe.com</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Feb 2025 13:13:59 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A</title>
+      <link>http://localhost:1313/a/</link>
+      <pubDate>Tue, 04 Feb 2025 13:13:59 +0100</pubDate>
+      <guid>http://localhost:1313/a/</guid>
+      <description>&lt;p&gt;This is my content!&lt;/p&gt;&#xA;&lt;h1 id=&#34;is-this-a-heading&#34;&gt;is this a heading?&lt;/h1&gt;&#xA;&lt;p&gt;Not sure.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
