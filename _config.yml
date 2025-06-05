@@ -1,6 +1,6 @@
 title: Jill Metcalfe
 description: Developer & Problem Solver
-email: metcalfe.jill@gmail.com
+author: Jill Metcalfe
 
 baseurl: ""
 url: "https://jillmetcalfe.github.io"
@@ -9,8 +9,7 @@ url: "https://jillmetcalfe.github.io"
 markdown: kramdown
 theme: minima
 
-# Social links
-github_username: jillmetcalfe
+# Social links (LinkedIn only)
 linkedin_username: jillmetcalfe
 
 # Collections for future use
@@ -18,3 +17,10 @@ collections:
   projects:
     output: true
     permalink: /:collection/:name/
+
+# Plugins
+plugins:
+  - jekyll-feed
+
+# Exclude email from footer (minima automatically includes it if present)
+# By not including email field, we keep contact to LinkedIn only
