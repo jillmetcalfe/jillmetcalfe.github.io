@@ -20,8 +20,6 @@ I'm currently working on projects involving web development, data visualization,
 
 ## Get In Touch
 
-- **Email**: [metcalfe.jill@gmail.com](mailto:metcalfe.jill@gmail.com)
-- **GitHub**: [jillmetcalfe](https://github.com/jillmetcalfe)
 - **LinkedIn**: [jillmetcalfe](https://linkedin.com/in/jillmetcalfe)
 
 ---
