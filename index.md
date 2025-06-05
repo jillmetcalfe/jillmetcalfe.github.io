@@ -24,4 +24,4 @@ I'm currently working on projects involving web development, data visualization,
 
 ---
 
-*This site is a work in progress - check back for new projects and posts! (Updated June 5th)*
+*This site is a work in progress - check back for new projects and posts! (Updated June 5th - Force rebuild)*
