@@ -135,14 +135,39 @@ a {
   }
 }
 
-// Al-folio Footer Styling
-footer.sticky-bottom {
+// Al-folio Footer Styling - More specific selectors
+footer.sticky-bottom,
+footer[role="contentinfo"] {
   background-color: $grey-color-dark !important;
   border-top: none !important;
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
+  padding: 20px 0 !important;
   font-size: 0.75rem !important;
+  color: $grey-color-light !important;
   
+  .container {
+    color: $grey-color-light !important;
+    text-align: center !important;
+  }
+  
+  a {
+    color: $white-color !important;
+    
+    &:hover {
+      color: $cyan-color !important;
+      text-decoration: none !important;
+    }
+  }
+}
+
+// Override any minima footer styles
+.site-footer {
+  background-color: $grey-color-dark !important;
+  border-top: none !important;
+  padding: 20px 0 !important;
+  font-size: 0.75rem !important;
+  color: $grey-color-light !important;
+  
+  .wrapper,
   .container {
     color: $grey-color-light !important;
     text-align: center !important;
