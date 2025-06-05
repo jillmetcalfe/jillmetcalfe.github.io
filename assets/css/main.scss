@@ -3,67 +3,133 @@
 
 @import "minima";
 
-/* Professional al-folio inspired styling */
+/* Al-folio color variables */
+:root {
+  --blue-color: #0076df;
+  --cyan-color: #2698ba;
+  --purple-color: #b509ac;
+  --orange-color: #f29105;
+  --green-color: #00ab37;
+  --grey-color: #828282;
+  --white-color: #ffffff;
+  --black-color: #000000;
+}
+
+/* Override minima styles with al-folio aesthetics */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #f8f9fa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--white-color);
+  color: var(--black-color);
+}
+
+/* Header styling */
+.site-header {
+  background-color: var(--white-color);
+  border-bottom: 1px solid #e1e4e8;
+  min-height: 80px;
+}
+
+.site-title, .site-title:visited {
+  font-size: 2.2rem !important;
+  font-weight: 700 !important;
+  color: var(--blue-color) !important;
+  text-decoration: none !important;
+}
+
+.site-title:hover {
+  color: var(--cyan-color) !important;
+}
+
+/* Navigation */
+.site-nav .page-link {
+  color: var(--grey-color) !important;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.site-nav .page-link:hover {
+  color: var(--blue-color) !important;
+  text-decoration: none !important;
+}
+
+/* Content area */
+.page-content {
+  padding: 60px 0;
 }
 
 .wrapper {
-  max-width: 900px;
+  max-width: 1000px;
 }
 
-.site-header {
-  background-color: white;
-  border-bottom: 1px solid #e1e4e8;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-.site-title {
-  font-size: 2rem !important;
-  font-weight: 700 !important;
-  color: #0366d6 !important;
-}
-
-.site-title:visited {
-  color: #0366d6 !important;
-}
-
+/* Typography overrides */
 h1 {
-  color: #24292e;
-  font-weight: 600;
-  border-bottom: 3px solid #0366d6;
-  padding-bottom: 0.5rem;
+  color: var(--blue-color) !important;
+  font-size: 2.8rem !important;
+  font-weight: 700 !important;
+  border-bottom: 4px solid var(--blue-color) !important;
+  padding-bottom: 0.8rem !important;
+  margin-bottom: 2rem !important;
 }
 
 h2 {
-  color: #0366d6;
-  font-weight: 600;
+  color: var(--cyan-color) !important;
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  margin-top: 2.5rem !important;
+  margin-bottom: 1rem !important;
 }
 
 h3 {
-  color: #6f42c1;
+  color: var(--purple-color) !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+}
+
+/* Links */
+a, .post-content a {
+  color: var(--blue-color) !important;
+  text-decoration: none !important;
+}
+
+a:hover, .post-content a:hover {
+  color: var(--cyan-color) !important;
+  text-decoration: underline !important;
+}
+
+/* List styling */
+.post-content ul li {
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+}
+
+.post-content ul li strong, .post-content strong {
+  color: var(--purple-color) !important;
   font-weight: 600;
 }
 
-a {
-  color: #0366d6;
+/* Paragraphs */
+.post-content p {
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  color: #333;
 }
 
-a:hover {
-  color: #0256cc;
-  text-decoration: underline;
+/* Footer */
+.site-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #e1e4e8;
 }
 
-.page-content {
-  background-color: white;
-  padding: 2rem 0;
+/* Make changes more visible with stronger selectors */
+.home h1, .page-content h1 {
+  color: var(--blue-color) !important;
+  border-bottom: 4px solid var(--blue-color) !important;
 }
 
-.post-content ul li {
-  margin-bottom: 0.5rem;
+.home h2, .page-content h2 {
+  color: var(--cyan-color) !important;
 }
 
-.post-content ul li strong {
-  color: #6f42c1;
+.home h3, .page-content h3 {
+  color: var(--purple-color) !important;
 }
