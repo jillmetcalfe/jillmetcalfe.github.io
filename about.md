@@ -35,8 +35,6 @@ I'm always working on something interesting! Some areas I'm currently exploring:
 
 I'm always interested in collaborating on interesting projects or discussing new opportunities. Feel free to reach out:
 
-- **Email**: [metcalfe.jill@gmail.com](mailto:metcalfe.jill@gmail.com)
-- **GitHub**: [jillmetcalfe](https://github.com/jillmetcalfe)
 - **LinkedIn**: [jillmetcalfe](https://linkedin.com/in/jillmetcalfe)
 
 Thanks for visiting!
