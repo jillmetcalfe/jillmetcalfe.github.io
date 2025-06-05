@@ -1,0 +1,20 @@
+title: Jill Metcalfe
+description: Developer & Problem Solver
+email: metcalfe.jill@gmail.com
+
+baseurl: ""
+url: "https://jillmetcalfe.github.io"
+
+# Build settings
+markdown: kramdown
+theme: minima
+
+# Social links
+github_username: jillmetcalfe
+linkedin_username: jillmetcalfe
+
+# Collections for future use
+collections:
+  projects:
+    output: true
+    permalink: /:collection/:name/
