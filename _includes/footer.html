@@ -1,9 +1,11 @@
-<footer class="site-footer h-card" role="contentinfo">
-  <div class="wrapper">
-    <div class="footer-content">
-      &copy; Copyright {{ site.time | date: '%Y' }} {{ site.title }}. 
-      Powered by <a href="https://jekyllrb.com/">Jekyll</a> with a custom minimal theme. 
-      Hosted by <a href="https://pages.github.com/">GitHub Pages</a>.
-    </div>
+{% capture footer_contents %}
+  &copy; Copyright {{ site.time | date: '%Y' }} {{ site.title }}.
+  Powered by <a href="https://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a> with a custom minimal theme.
+  Hosted by <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>.
+{% endcapture %}
+
+<footer class="sticky-bottom mt-5" role="contentinfo">
+  <div class="container">
+    {{ footer_contents }}
   </div>
 </footer>
