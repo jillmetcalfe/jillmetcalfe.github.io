@@ -5,15 +5,6 @@
 // Import Roboto font from Google Fonts FIRST
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-// Define the font family at the highest level - this is critical for Jekyll
-html {
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-}
-
-// Override Bootstrap's font variables BEFORE any other CSS
-$font-family-sans-serif: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-$font-family-base: $font-family-sans-serif;
-
 // Al-folio inspired color palette
 $blue-color: #0076df;
 $cyan-color: #2698ba;
@@ -29,12 +20,15 @@ $black-color: #000000;
 $text-color: #111;
 $background-color: #fdfdfd;
 
+// FORCE Roboto font override - this is necessary to override Bootstrap's system-ui preference
+html,
+body,
+* {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
 // CSS Variables for theming (al-folio style) - Light Theme
 :root {
-  // Force font variables at root level - this overrides Bootstrap
-  --bs-font-sans-serif: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  --bs-body-font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  
   // Theme colors
   color-scheme: light;
   --global-bg-color: #{$background-color};
@@ -75,10 +69,6 @@ html[data-theme="dark"] {
   --global-footer-link-color: #{$black-color};
   --global-divider-color: #424246;
   --global-card-bg-color: #{$grey-900};
-  
-  // Font variables remain the same in dark mode
-  --bs-font-sans-serif: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  --bs-body-font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
 // Theme setting specific icon display
@@ -119,14 +109,8 @@ html.transition *:after {
   transition-delay: 0;
 }
 
-// Force font inheritance for all elements - this ensures Roboto is used everywhere
-* {
-  font-family: inherit;
-}
-
-// Base body styling - inherits from html
+// Base body styling
 body {
-  font-family: inherit; // Will inherit Roboto from html
   font-weight: 300;
   font-size: 16px;
   line-height: 1.6;
@@ -145,7 +129,7 @@ body.sticky-bottom-footer {
   }
 }
 
-// Typography hierarchy - all inherit from html font-family
+// Typography hierarchy
 h1, .h1 {
   color: var(--global-theme-color);
   font-size: 2.8rem;
@@ -176,7 +160,7 @@ h4, h5, h6, .h4, .h5, .h6 {
   font-weight: 500;
 }
 
-// Paragraph and content text - inherit font family
+// Paragraph and content text
 p {
   font-weight: 300;
   line-height: 1.7;
@@ -262,7 +246,7 @@ a {
   }
 }
 
-// Content styling - inherit font
+// Content styling
 .post-content, .page-content {
   p {
     font-weight: 300;
@@ -282,7 +266,7 @@ a {
   }
 }
 
-// Footer styling - inherits font naturally
+// Footer styling
 footer.fixed-bottom {
   position: fixed;
   bottom: 0;
