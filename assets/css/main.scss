@@ -2,13 +2,16 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-// Import Bootstrap's functions and variables first so we can override them
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+// Import Roboto font from Google Fonts FIRST
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-// Define our font family BEFORE any other imports
+// Define the font family at the highest level - this is critical for Jekyll
+html {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+// Override Bootstrap's font variables BEFORE any other CSS
 $font-family-sans-serif: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-
-// Override Bootstrap's default font variables
 $font-family-base: $font-family-sans-serif;
 
 // Al-folio inspired color palette
@@ -28,9 +31,9 @@ $background-color: #fdfdfd;
 
 // CSS Variables for theming (al-folio style) - Light Theme
 :root {
-  // Override Bootstrap's font CSS variables at the root level
-  --bs-font-sans-serif: #{$font-family-sans-serif};
-  --bs-body-font-family: #{$font-family-sans-serif};
+  // Force font variables at root level - this overrides Bootstrap
+  --bs-font-sans-serif: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --bs-body-font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   
   // Theme colors
   color-scheme: light;
@@ -74,8 +77,8 @@ html[data-theme="dark"] {
   --global-card-bg-color: #{$grey-900};
   
   // Font variables remain the same in dark mode
-  --bs-font-sans-serif: #{$font-family-sans-serif};
-  --bs-body-font-family: #{$font-family-sans-serif};
+  --bs-font-sans-serif: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --bs-body-font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
 // Theme setting specific icon display
@@ -116,9 +119,14 @@ html.transition *:after {
   transition-delay: 0;
 }
 
-// Base body styling - let Bootstrap handle font inheritance
+// Force font inheritance for all elements - this ensures Roboto is used everywhere
+* {
+  font-family: inherit;
+}
+
+// Base body styling - inherits from html
 body {
-  font-family: var(--bs-font-sans-serif);
+  font-family: inherit; // Will inherit Roboto from html
   font-weight: 300;
   font-size: 16px;
   line-height: 1.6;
@@ -137,7 +145,7 @@ body.sticky-bottom-footer {
   }
 }
 
-// Typography hierarchy - let font family inherit naturally
+// Typography hierarchy - all inherit from html font-family
 h1, .h1 {
   color: var(--global-theme-color);
   font-size: 2.8rem;
@@ -254,7 +262,7 @@ a {
   }
 }
 
-// Content styling - let font inherit
+// Content styling - inherit font
 .post-content, .page-content {
   p {
     font-weight: 300;
