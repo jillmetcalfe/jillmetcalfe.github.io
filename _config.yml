@@ -2,8 +2,24 @@ title: Jill Metcalfe
 description: Developer & Problem Solver
 author: Jill Metcalfe
 
+# Al-folio style name components
+first_name: Jill
+middle_name: 
+last_name: Metcalfe
+
 baseurl: ""
 url: "https://jillmetcalfe.github.io"
+
+# Footer configuration
+footer_text: >
+  Powered by <a href="https://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a> with a custom theme.
+  Hosted by <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>.
+footer_fixed: false
+last_updated: true
+
+# Newsletter (disabled for now)
+newsletter:
+  enabled: false
 
 # Build settings
 markdown: kramdown
