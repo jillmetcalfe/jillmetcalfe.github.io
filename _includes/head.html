@@ -6,7 +6,7 @@
   <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
   
-  <!-- Test with simpler Google Fonts URL -->
+  <!-- Google Fonts - Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
@@ -19,16 +19,4 @@
   
   <!-- Feed -->
   <link type="application/atom+xml" rel="alternate" href="{{ "/feed.xml" | relative_url }}" title="{{ site.title | escape }}">
-  
-  <!-- Test inline CSS to force Roboto -->
-  <style>
-    * {
-      font-family: 'Roboto', sans-serif !important;
-      font-weight: 300 !important;
-    }
-    body {
-      font-family: 'Roboto', sans-serif !important;
-      font-weight: 300 !important;
-    }
-  </style>
 </head>
