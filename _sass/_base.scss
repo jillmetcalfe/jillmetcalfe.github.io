@@ -2,7 +2,7 @@
  * Styles for the base elements of the theme.
  ******************************************************************************/
 
-// Typography - Apply Roboto to all text elements like al-folio
+// Typography - Remove explicit font-family since it's handled in main.scss
 p,
 h1,
 h2,
@@ -16,10 +16,8 @@ li,
 span,
 strong {
   color: var(--global-text-color);
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
-// Rest of your current styles but remove the font overrides at the top
 hr {
   border-top: 1px solid var(--global-divider-color);
 }
