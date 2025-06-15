@@ -16,6 +16,9 @@ $black-color: #000000;
 $text-color: #111;
 $background-color: #fdfdfd;
 
+// Font family definition
+$roboto-font: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+
 // CSS Variables for theming (al-folio style)
 :root {
   --global-bg-color: #{$background-color};
@@ -28,16 +31,34 @@ $background-color: #fdfdfd;
   --global-footer-link-color: #{$white-color};
   --global-divider-color: #e8e8e8;
   --global-card-bg-color: #{$white-color};
+  
+  // Font variables
+  --bs-font-sans-serif: #{$roboto-font};
+}
+
+// Override Bootstrap's font family completely
+* {
+  font-family: $roboto-font !important;
 }
 
 // Base typography - Al-folio style with Roboto
+html {
+  font-family: $roboto-font !important;
+}
+
 body {
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--global-text-color);
-  background-color: var(--global-bg-color);
+  font-family: $roboto-font !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  color: var(--global-text-color) !important;
+  background-color: var(--global-bg-color) !important;
+}
+
+// Override Bootstrap container and other elements
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+  font-family: $roboto-font !important;
+  font-weight: 300 !important;
 }
 
 // Sticky bottom footer layout (when footer_fixed is false)
@@ -51,58 +72,60 @@ body.sticky-bottom-footer {
   }
 }
 
-// Typography with proper Roboto weights
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Roboto", sans-serif;
+// Typography with proper Roboto weights - Override Bootstrap
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: $roboto-font !important;
 }
 
-h1 {
-  color: var(--global-theme-color);
-  font-size: 2.8rem;
-  font-weight: 300; // Light weight for al-folio style
-  border-bottom: 4px solid var(--global-theme-color);
-  padding-bottom: 0.8rem;
-  margin-bottom: 2rem;
+h1, .h1 {
+  color: var(--global-theme-color) !important;
+  font-size: 2.8rem !important;
+  font-weight: 300 !important;
+  border-bottom: 4px solid var(--global-theme-color) !important;
+  padding-bottom: 0.8rem !important;
+  margin-bottom: 2rem !important;
 }
 
-h2 {
-  color: $cyan-color;
-  font-size: 2rem;
-  font-weight: 400; // Regular weight
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
+h2, .h2 {
+  color: $cyan-color !important;
+  font-size: 2rem !important;
+  font-weight: 400 !important;
+  margin-top: 2.5rem !important;
+  margin-bottom: 1rem !important;
 }
 
-h3 {
-  color: $purple-color;
-  font-size: 1.5rem;
-  font-weight: 400; // Regular weight
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+h3, .h3 {
+  color: $purple-color !important;
+  font-size: 1.5rem !important;
+  font-weight: 400 !important;
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
 }
 
-h4, h5, h6 {
-  font-weight: 500; // Medium weight for smaller headings
+h4, h5, h6, .h4, .h5, .h6 {
+  font-weight: 500 !important;
 }
 
-// Paragraph and content text
-p, div, span, li {
-  font-family: "Roboto", sans-serif;
-  font-weight: 300; // Light weight for body text
-  font-size: 16px;
-  line-height: 1.6;
+// Paragraph and content text - Override Bootstrap
+p, div, span, li, ul, ol, dl, dt, dd {
+  font-family: $roboto-font !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
 }
 
-// Links
-a {
-  color: var(--global-theme-color);
-  text-decoration: none;
-  font-weight: 400; // Slightly heavier for links
-  
-  &:hover {
-    color: var(--global-hover-color);
-    text-decoration: underline;
-  }
+// Links - Override Bootstrap
+a, a:hover, a:focus, a:active {
+  color: var(--global-theme-color) !important;
+  text-decoration: none !important;
+  font-family: $roboto-font !important;
+  font-weight: 400 !important;
+}
+
+a:hover {
+  color: var(--global-hover-color) !important;
+  text-decoration: underline !important;
 }
 
 // Custom header styling
@@ -113,53 +136,58 @@ a {
 }
 
 .site-title {
-  font-family: "Roboto", sans-serif;
-  font-size: 2.2rem;
-  font-weight: 500; // Medium weight for site title
-  color: var(--global-theme-color);
-  text-decoration: none;
+  font-family: $roboto-font !important;
+  font-size: 2.2rem !important;
+  font-weight: 500 !important;
+  color: var(--global-theme-color) !important;
+  text-decoration: none !important;
   
   &:hover {
-    color: var(--global-hover-color);
-    text-decoration: none;
+    color: var(--global-hover-color) !important;
+    text-decoration: none !important;
   }
 }
 
 .site-nav {
   .page-link {
-    font-family: "Roboto", sans-serif;
-    color: var(--global-text-color-light);
-    font-weight: 400; // Regular weight for navigation
-    font-size: 1.1rem;
-    text-decoration: none;
+    font-family: $roboto-font !important;
+    color: var(--global-text-color-light) !important;
+    font-weight: 400 !important;
+    font-size: 1.1rem !important;
+    text-decoration: none !important;
     margin-left: 1.5rem;
     
     &:hover {
-      color: var(--global-theme-color);
-      text-decoration: none;
+      color: var(--global-theme-color) !important;
+      text-decoration: none !important;
     }
   }
 }
 
 // Content styling
 .post-content, .page-content {
+  * {
+    font-family: $roboto-font !important;
+  }
+  
   p {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300; // Light weight for readability
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
+    font-family: $roboto-font !important;
+    font-weight: 300 !important;
+    line-height: 1.7 !important;
+    margin-bottom: 1.5rem !important;
   }
   
-  ul li {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    margin-bottom: 0.8rem;
-    line-height: 1.6;
+  ul li, ol li {
+    font-family: $roboto-font !important;
+    font-weight: 300 !important;
+    margin-bottom: 0.8rem !important;
+    line-height: 1.6 !important;
   }
   
-  strong {
-    color: $purple-color;
-    font-weight: 500; // Medium weight for emphasis
+  strong, b {
+    color: $purple-color !important;
+    font-weight: 500 !important;
+    font-family: $roboto-font !important;
   }
 }
 
@@ -174,22 +202,22 @@ footer.fixed-bottom {
   font-size: 0.75rem;
 
   .container {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    color: var(--global-footer-text-color);
+    font-family: $roboto-font !important;
+    font-weight: 300 !important;
+    color: var(--global-footer-text-color) !important;
     padding-top: 9px;
     padding-bottom: 8px;
     text-align: center;
   }
 
   a {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    color: var(--global-footer-link-color);
+    font-family: $roboto-font !important;
+    font-weight: 400 !important;
+    color: var(--global-footer-link-color) !important;
 
     &:hover {
-      color: var(--global-theme-color);
-      text-decoration: none;
+      color: var(--global-theme-color) !important;
+      text-decoration: none !important;
     }
   }
 }
@@ -203,20 +231,20 @@ footer.sticky-bottom {
   margin-top: auto;
 
   .container {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
+    font-family: $roboto-font !important;
+    font-weight: 300 !important;
     text-align: center;
-    color: var(--global-footer-text-color);
+    color: var(--global-footer-text-color) !important;
   }
   
   a {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    color: var(--global-footer-link-color);
+    font-family: $roboto-font !important;
+    font-weight: 400 !important;
+    color: var(--global-footer-link-color) !important;
 
     &:hover {
-      color: var(--global-theme-color);
-      text-decoration: none;
+      color: var(--global-theme-color) !important;
+      text-decoration: none !important;
     }
   }
 }
