@@ -11,6 +11,7 @@ $green-color: #00ab37;
 $grey-color: #828282;
 $grey-color-dark: #1c1c1d;
 $grey-color-light: lighten($grey-color, 40%);
+$grey-900: #212529;
 $white-color: #ffffff;
 $black-color: #000000;
 $text-color: #111;
@@ -19,8 +20,9 @@ $background-color: #fdfdfd;
 // Font family definition
 $roboto-font: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
-// CSS Variables for theming (al-folio style)
+// CSS Variables for theming (al-folio style) - Light Theme
 :root {
+  color-scheme: light;
   --global-bg-color: #{$background-color};
   --global-text-color: #{$text-color};
   --global-text-color-light: #{$grey-color};
@@ -34,6 +36,72 @@ $roboto-font: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetic
   
   // Font variables
   --bs-font-sans-serif: #{$roboto-font};
+
+  // Dark mode toggle icons
+  #light-toggle-system {
+    display: block;
+  }
+
+  #light-toggle-dark {
+    display: none;
+  }
+
+  #light-toggle-light {
+    display: none;
+  }
+}
+
+// Dark Theme Variables
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --global-bg-color: #{$grey-color-dark};
+  --global-text-color: #{$grey-color-light};
+  --global-text-color-light: #{$grey-color};
+  --global-theme-color: #{$cyan-color};
+  --global-hover-color: #{$blue-color};
+  --global-footer-bg-color: #{$grey-color-light};
+  --global-footer-text-color: #{$grey-color-dark};
+  --global-footer-link-color: #{$black-color};
+  --global-divider-color: #424246;
+  --global-card-bg-color: #{$grey-900};
+}
+
+// Theme setting specific icon display
+html[data-theme-setting="dark"] {
+  #light-toggle-system {
+    display: none;
+  }
+
+  #light-toggle-dark {
+    display: block;
+  }
+
+  #light-toggle-light {
+    display: none;
+  }
+}
+
+html[data-theme-setting="light"] {
+  #light-toggle-system {
+    display: none;
+  }
+
+  #light-toggle-dark {
+    display: none;
+  }
+
+  #light-toggle-light {
+    display: block;
+  }
+}
+
+// Smooth transitions for theme changes
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+  transition: all 250ms !important;
+  transition-delay: 0 !important;
 }
 
 // Override Bootstrap's font family completely
@@ -88,7 +156,7 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  color: $cyan-color !important;
+  color: var(--global-hover-color) !important;
   font-size: 2rem !important;
   font-weight: 400 !important;
   margin-top: 2.5rem !important;
@@ -96,7 +164,7 @@ h2, .h2 {
 }
 
 h3, .h3 {
-  color: $purple-color !important;
+  color: var(--global-theme-color) !important;
   font-size: 1.5rem !important;
   font-weight: 400 !important;
   margin-top: 2rem !important;
@@ -104,6 +172,7 @@ h3, .h3 {
 }
 
 h4, h5, h6, .h4, .h5, .h6 {
+  color: var(--global-text-color) !important;
   font-weight: 500 !important;
 }
 
@@ -164,6 +233,33 @@ a:hover {
   }
 }
 
+// Dark mode toggle button styling
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--global-text-color-light);
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--global-theme-color);
+    background-color: rgba(var(--global-theme-color), 0.1);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--global-theme-color);
+  }
+
+  i {
+    font-size: 1.1rem;
+  }
+}
+
 // Content styling
 .post-content, .page-content {
   * {
@@ -185,7 +281,7 @@ a:hover {
   }
   
   strong, b {
-    color: $purple-color !important;
+    color: var(--global-theme-color) !important;
     font-weight: 500 !important;
     font-family: $roboto-font !important;
   }
