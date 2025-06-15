@@ -1,20 +1,24 @@
-<!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<!doctype html>
+<html lang="{{ site.lang | default: "en" }}">
+  <!-- Head -->
+  <head>
+    {%- include head.html -%}
+  </head>
 
-  {%- include head.html -%}
-
-  <body>
-
+  <!-- Body -->
+  <body class="{% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+    <!-- Header -->
     {%- include header.html -%}
 
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {{ content }}
-      </div>
-    </main>
+    <!-- Content -->
+    <div class="container mt-5" role="main">
+      {{ content }}
+    </div>
 
+    <!-- Footer -->
     {%- include footer.html -%}
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
   </body>
-
 </html>
