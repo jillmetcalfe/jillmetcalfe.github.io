@@ -64,6 +64,9 @@ html[data-theme="dark"] {
   --global-footer-link-color: #{$black-color};
   --global-divider-color: #424246;
   --global-card-bg-color: #{$grey-900};
+  
+  // Keep the same font variables in dark mode!
+  --bs-font-sans-serif: #{$roboto-font};
 }
 
 // Theme setting specific icon display
@@ -104,18 +107,18 @@ html.transition *:after {
   transition-delay: 0 !important;
 }
 
-// Override Bootstrap's font family completely
+// Override Bootstrap's font family completely - FORCE Roboto everywhere
 * {
-  font-family: $roboto-font !important;
+  font-family: #{$roboto-font} !important;
 }
 
 // Base typography - Al-folio style with Roboto
 html {
-  font-family: $roboto-font !important;
+  font-family: #{$roboto-font} !important;
 }
 
 body {
-  font-family: $roboto-font !important;
+  font-family: #{$roboto-font} !important;
   font-weight: 300 !important;
   font-size: 16px !important;
   line-height: 1.6 !important;
@@ -125,7 +128,7 @@ body {
 
 // Override Bootstrap container and other elements
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
-  font-family: $roboto-font !important;
+  font-family: #{$roboto-font} !important;
   font-weight: 300 !important;
 }
 
@@ -143,7 +146,7 @@ body.sticky-bottom-footer {
 // Typography with proper Roboto weights - Override Bootstrap
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: $roboto-font !important;
+  font-family: #{$roboto-font} !important;
 }
 
 h1, .h1 {
@@ -178,7 +181,7 @@ h4, h5, h6, .h4, .h5, .h6 {
 
 // Paragraph and content text - Override Bootstrap
 p, div, span, li, ul, ol, dl, dt, dd {
-  font-family: $roboto-font !important;
+  font-family: #{$roboto-font} !important;
   font-weight: 300 !important;
   font-size: 16px !important;
   line-height: 1.6 !important;
@@ -188,7 +191,7 @@ p, div, span, li, ul, ol, dl, dt, dd {
 a, a:hover, a:focus, a:active {
   color: var(--global-theme-color) !important;
   text-decoration: none !important;
-  font-family: $roboto-font !important;
+  font-family: #{$roboto-font} !important;
   font-weight: 400 !important;
 }
 
@@ -205,7 +208,7 @@ a:hover {
 }
 
 .site-title {
-  font-family: $roboto-font !important;
+  font-family: #{$roboto-font} !important;
   font-size: 2.2rem !important;
   font-weight: 500 !important;
   color: var(--global-theme-color) !important;
@@ -219,7 +222,7 @@ a:hover {
 
 .site-nav {
   .page-link {
-    font-family: $roboto-font !important;
+    font-family: #{$roboto-font} !important;
     color: var(--global-text-color-light) !important;
     font-weight: 400 !important;
     font-size: 1.1rem !important;
@@ -269,18 +272,18 @@ a:hover {
 // Content styling
 .post-content, .page-content {
   * {
-    font-family: $roboto-font !important;
+    font-family: #{$roboto-font} !important;
   }
   
   p {
-    font-family: $roboto-font !important;
+    font-family: #{$roboto-font} !important;
     font-weight: 300 !important;
     line-height: 1.7 !important;
     margin-bottom: 1.5rem !important;
   }
   
   ul li, ol li {
-    font-family: $roboto-font !important;
+    font-family: #{$roboto-font} !important;
     font-weight: 300 !important;
     margin-bottom: 0.8rem !important;
     line-height: 1.6 !important;
@@ -289,7 +292,7 @@ a:hover {
   strong, b {
     color: var(--global-theme-color) !important;
     font-weight: 500 !important;
-    font-family: $roboto-font !important;
+    font-family: #{$roboto-font} !important;
   }
 }
 
@@ -304,7 +307,7 @@ footer.fixed-bottom {
   font-size: 0.75rem;
 
   .container {
-    font-family: $roboto-font !important;
+    font-family: #{$roboto-font} !important;
     font-weight: 300 !important;
     color: var(--global-footer-text-color) !important;
     padding-top: 9px;
@@ -313,7 +316,7 @@ footer.fixed-bottom {
   }
 
   a {
-    font-family: $roboto-font !important;
+    font-family: #{$roboto-font} !important;
     font-weight: 400 !important;
     color: var(--global-footer-link-color) !important;
 
@@ -333,14 +336,14 @@ footer.sticky-bottom {
   margin-top: auto;
 
   .container {
-    font-family: $roboto-font !important;
+    font-family: #{$roboto-font} !important;
     font-weight: 300 !important;
     text-align: center;
     color: var(--global-footer-text-color) !important;
   }
   
   a {
-    font-family: $roboto-font !important;
+    font-family: #{$roboto-font} !important;
     font-weight: 400 !important;
     color: var(--global-footer-link-color) !important;
 
