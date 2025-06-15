@@ -17,6 +17,14 @@
   <!-- Custom CSS (must come AFTER Bootstrap to override) -->
   <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
   
+  <!-- Dark Mode Theme Script (must be in head to prevent flicker) -->
+  <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+  {% if site.enable_darkmode %}
+    <script>
+      initTheme();
+    </script>
+  {% endif %}
+  
   <!-- Feed -->
   <link type="application/atom+xml" rel="alternate" href="{{ "/feed.xml" | relative_url }}" title="{{ site.title | escape }}">
 </head>
