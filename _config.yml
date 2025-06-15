@@ -12,9 +12,12 @@ theme: minima
 # Social links (LinkedIn only)
 linkedin_username: jillmetcalfe
 
-# Collections for future use
+# Collections
 collections:
   projects:
+    output: true
+    permalink: /:collection/:name/
+  books:
     output: true
     permalink: /:collection/:name/
 
@@ -22,6 +25,7 @@ collections:
 header_pages:
   - about.md
   - projects.md
+  - bookshelf.md
   - now.md
 
 # Plugins
