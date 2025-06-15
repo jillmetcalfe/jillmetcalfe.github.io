@@ -23,7 +23,7 @@ newsletter:
 
 # Build settings
 markdown: kramdown
-theme: minima
+# Removed theme: minima to use custom layouts
 
 # Social links (LinkedIn only)
 linkedin_username: jillmetcalfe
