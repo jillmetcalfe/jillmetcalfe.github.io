@@ -18,6 +18,12 @@ collections:
     output: true
     permalink: /:collection/:name/
 
+# Navigation pages (order matters)
+header_pages:
+  - about.md
+  - projects.md
+  - now.md
+
 # Plugins
 plugins:
   - jekyll-feed
