@@ -2,6 +2,15 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+// Import Bootstrap's functions and variables first so we can override them
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+// Define our font family BEFORE any other imports
+$font-family-sans-serif: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+
+// Override Bootstrap's default font variables
+$font-family-base: $font-family-sans-serif;
+
 // Al-folio inspired color palette
 $blue-color: #0076df;
 $cyan-color: #2698ba;
@@ -17,11 +26,13 @@ $black-color: #000000;
 $text-color: #111;
 $background-color: #fdfdfd;
 
-// Font family definition
-$roboto-font: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-
 // CSS Variables for theming (al-folio style) - Light Theme
 :root {
+  // Override Bootstrap's font CSS variables at the root level
+  --bs-font-sans-serif: #{$font-family-sans-serif};
+  --bs-body-font-family: #{$font-family-sans-serif};
+  
+  // Theme colors
   color-scheme: light;
   --global-bg-color: #{$background-color};
   --global-text-color: #{$text-color};
@@ -33,9 +44,6 @@ $roboto-font: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetic
   --global-footer-link-color: #{$white-color};
   --global-divider-color: #e8e8e8;
   --global-card-bg-color: #{$white-color};
-  
-  // Font variables
-  --bs-font-sans-serif: #{$roboto-font};
 
   // Dark mode toggle icons - System mode (default)
   #light-toggle-system {
@@ -65,8 +73,9 @@ html[data-theme="dark"] {
   --global-divider-color: #424246;
   --global-card-bg-color: #{$grey-900};
   
-  // Keep the same font variables in dark mode!
-  --bs-font-sans-serif: #{$roboto-font};
+  // Font variables remain the same in dark mode
+  --bs-font-sans-serif: #{$font-family-sans-serif};
+  --bs-body-font-family: #{$font-family-sans-serif};
 }
 
 // Theme setting specific icon display
@@ -103,33 +112,18 @@ html.transition,
 html.transition *,
 html.transition *:before,
 html.transition *:after {
-  transition: all 250ms !important;
-  transition-delay: 0 !important;
+  transition: all 250ms ease;
+  transition-delay: 0;
 }
 
-// Override Bootstrap's font family completely - FORCE Roboto everywhere
-* {
-  font-family: #{$roboto-font} !important;
-}
-
-// Base typography - Al-folio style with Roboto
-html {
-  font-family: #{$roboto-font} !important;
-}
-
+// Base body styling - let Bootstrap handle font inheritance
 body {
-  font-family: #{$roboto-font} !important;
-  font-weight: 300 !important;
-  font-size: 16px !important;
-  line-height: 1.6 !important;
-  color: var(--global-text-color) !important;
-  background-color: var(--global-bg-color) !important;
-}
-
-// Override Bootstrap container and other elements
-.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
-  font-family: #{$roboto-font} !important;
-  font-weight: 300 !important;
+  font-family: var(--bs-font-sans-serif);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--global-text-color);
+  background-color: var(--global-bg-color);
 }
 
 // Sticky bottom footer layout (when footer_fixed is false)
@@ -143,61 +137,54 @@ body.sticky-bottom-footer {
   }
 }
 
-// Typography with proper Roboto weights - Override Bootstrap
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: #{$roboto-font} !important;
-}
-
+// Typography hierarchy - let font family inherit naturally
 h1, .h1 {
-  color: var(--global-theme-color) !important;
-  font-size: 2.8rem !important;
-  font-weight: 300 !important;
-  border-bottom: 4px solid var(--global-theme-color) !important;
-  padding-bottom: 0.8rem !important;
-  margin-bottom: 2rem !important;
+  color: var(--global-theme-color);
+  font-size: 2.8rem;
+  font-weight: 300;
+  border-bottom: 4px solid var(--global-theme-color);
+  padding-bottom: 0.8rem;
+  margin-bottom: 2rem;
 }
 
 h2, .h2 {
-  color: var(--global-hover-color) !important;
-  font-size: 2rem !important;
-  font-weight: 400 !important;
-  margin-top: 2.5rem !important;
-  margin-bottom: 1rem !important;
+  color: var(--global-hover-color);
+  font-size: 2rem;
+  font-weight: 400;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 h3, .h3 {
-  color: var(--global-theme-color) !important;
-  font-size: 1.5rem !important;
-  font-weight: 400 !important;
-  margin-top: 2rem !important;
-  margin-bottom: 1rem !important;
+  color: var(--global-theme-color);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 h4, h5, h6, .h4, .h5, .h6 {
-  color: var(--global-text-color) !important;
-  font-weight: 500 !important;
+  color: var(--global-text-color);
+  font-weight: 500;
 }
 
-// Paragraph and content text - Override Bootstrap
-p, div, span, li, ul, ol, dl, dt, dd {
-  font-family: #{$roboto-font} !important;
-  font-weight: 300 !important;
-  font-size: 16px !important;
-  line-height: 1.6 !important;
+// Paragraph and content text - inherit font family
+p {
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
 }
 
-// Links - Override Bootstrap
-a, a:hover, a:focus, a:active {
-  color: var(--global-theme-color) !important;
-  text-decoration: none !important;
-  font-family: #{$roboto-font} !important;
-  font-weight: 400 !important;
-}
-
-a:hover {
-  color: var(--global-hover-color) !important;
-  text-decoration: underline !important;
+// Links
+a {
+  color: var(--global-theme-color);
+  text-decoration: none;
+  font-weight: 400;
+  
+  &:hover {
+    color: var(--global-hover-color);
+    text-decoration: underline;
+  }
 }
 
 // Custom header styling
@@ -208,30 +195,28 @@ a:hover {
 }
 
 .site-title {
-  font-family: #{$roboto-font} !important;
-  font-size: 2.2rem !important;
-  font-weight: 500 !important;
-  color: var(--global-theme-color) !important;
-  text-decoration: none !important;
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--global-theme-color);
+  text-decoration: none;
   
   &:hover {
-    color: var(--global-hover-color) !important;
-    text-decoration: none !important;
+    color: var(--global-hover-color);
+    text-decoration: none;
   }
 }
 
 .site-nav {
   .page-link {
-    font-family: #{$roboto-font} !important;
-    color: var(--global-text-color-light) !important;
-    font-weight: 400 !important;
-    font-size: 1.1rem !important;
-    text-decoration: none !important;
+    color: var(--global-text-color-light);
+    font-weight: 400;
+    font-size: 1.1rem;
+    text-decoration: none;
     margin-left: 1.5rem;
     
     &:hover {
-      color: var(--global-theme-color) !important;
-      text-decoration: none !important;
+      color: var(--global-theme-color);
+      text-decoration: none;
     }
   }
 }
@@ -269,34 +254,27 @@ a:hover {
   }
 }
 
-// Content styling
+// Content styling - let font inherit
 .post-content, .page-content {
-  * {
-    font-family: #{$roboto-font} !important;
-  }
-  
   p {
-    font-family: #{$roboto-font} !important;
-    font-weight: 300 !important;
-    line-height: 1.7 !important;
-    margin-bottom: 1.5rem !important;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
   }
   
   ul li, ol li {
-    font-family: #{$roboto-font} !important;
-    font-weight: 300 !important;
-    margin-bottom: 0.8rem !important;
-    line-height: 1.6 !important;
+    font-weight: 300;
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
   }
   
   strong, b {
-    color: var(--global-theme-color) !important;
-    font-weight: 500 !important;
-    font-family: #{$roboto-font} !important;
+    color: var(--global-theme-color);
+    font-weight: 500;
   }
 }
 
-// Al-folio Footer Styling - with Roboto
+// Footer styling - inherits font naturally
 footer.fixed-bottom {
   position: fixed;
   bottom: 0;
@@ -307,22 +285,20 @@ footer.fixed-bottom {
   font-size: 0.75rem;
 
   .container {
-    font-family: #{$roboto-font} !important;
-    font-weight: 300 !important;
-    color: var(--global-footer-text-color) !important;
+    font-weight: 300;
+    color: var(--global-footer-text-color);
     padding-top: 9px;
     padding-bottom: 8px;
     text-align: center;
   }
 
   a {
-    font-family: #{$roboto-font} !important;
-    font-weight: 400 !important;
-    color: var(--global-footer-link-color) !important;
+    font-weight: 400;
+    color: var(--global-footer-link-color);
 
     &:hover {
-      color: var(--global-theme-color) !important;
-      text-decoration: none !important;
+      color: var(--global-theme-color);
+      text-decoration: none;
     }
   }
 }
@@ -336,20 +312,18 @@ footer.sticky-bottom {
   margin-top: auto;
 
   .container {
-    font-family: #{$roboto-font} !important;
-    font-weight: 300 !important;
+    font-weight: 300;
     text-align: center;
-    color: var(--global-footer-text-color) !important;
+    color: var(--global-footer-text-color);
   }
   
   a {
-    font-family: #{$roboto-font} !important;
-    font-weight: 400 !important;
-    color: var(--global-footer-link-color) !important;
+    font-weight: 400;
+    color: var(--global-footer-link-color);
 
     &:hover {
-      color: var(--global-theme-color) !important;
-      text-decoration: none !important;
+      color: var(--global-theme-color);
+      text-decoration: none;
     }
   }
 }
@@ -370,7 +344,7 @@ body:not(.sticky-bottom-footer) {
   }
 }
 
-// Mobile navigation override for Bootstrap
+// Mobile navigation
 @media screen and (max-width: 768px) {
   .site-header {
     .navbar-nav {
