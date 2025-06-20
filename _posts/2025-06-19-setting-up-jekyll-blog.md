@@ -7,8 +7,6 @@ tags: [jekyll, github-pages, blogging]
 excerpt: "A practical guide to creating and customizing a Jekyll blog hosted on GitHub Pages, including tips for styling and organization."
 ---
 
-# Setting Up a Jekyll Blog with GitHub Pages
-
 Creating a blog with Jekyll and GitHub Pages is a fantastic way to share your thoughts and technical insights with the world. Here's what I learned while setting up this very blog.
 
 ## Why Jekyll?
