@@ -4,8 +4,6 @@ title: Now
 permalink: /now/
 ---
 
-# What I'm Doing Now
-
 *This is a "now page" - inspired by [Derek Sivers](https://sivers.org/nowff). It's a snapshot of what I'm focused on right now.*
 
 *Updated June 15th, 2025, from Lausanne, Switzerland*
