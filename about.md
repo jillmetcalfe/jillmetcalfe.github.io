@@ -4,8 +4,6 @@ title: About
 permalink: /about/
 ---
 
-# About Me
-
 I'm a developer passionate about creating practical solutions to real-world problems. With a focus on web development, data visualization, and automation tools, I enjoy tackling challenges that make a meaningful impact.
 
 ## What I Do
