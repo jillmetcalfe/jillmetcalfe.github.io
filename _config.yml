@@ -44,6 +44,7 @@ collections:
 header_pages:
   - about.md
   - projects.md
+  - blog.md
   - bookshelf.md
   - now.md
 
