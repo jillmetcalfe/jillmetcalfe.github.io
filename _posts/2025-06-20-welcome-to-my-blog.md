@@ -7,8 +7,6 @@ tags: [welcome, introduction]
 excerpt: "Welcome to my development blog! This is where I'll share insights from my coding journey, project deep-dives, and thoughts on technology."
 ---
 
-# Welcome to My Blog!
-
 I'm excited to launch this blog as a space to share my journey as a developer and the lessons I learn along the way.
 
 ## What You Can Expect
