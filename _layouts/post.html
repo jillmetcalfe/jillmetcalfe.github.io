@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%B %d, %Y' }}</time>
+      {% if page.categories.size > 0 %}
+        &nbsp;&middot;&nbsp;
+        {% for category in page.categories %}
+          <span class="category">{{ category }}</span>{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      {% endif %}
+      {% if page.tags.size > 0 %}
+        &nbsp;&middot;&nbsp;
+        {% for tag in page.tags %}
+          <span class="tag">#{{ tag }}</span>{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      {% endif %}
+    </p>
+  </header>
+
+  <article class="post-content">
+    {{ content }}
+  </article>
+
+  <footer class="post-footer">
+    <hr>
+    <p><a href="/blog/">&larr; Back to blog</a></p>
+  </footer>
+</div>
