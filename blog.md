@@ -4,8 +4,6 @@ title: Blog
 permalink: /blog/
 ---
 
-# Blog
-
 Welcome to my blog! Here I share insights from my development journey, tutorials, and thoughts on technology and problem-solving.
 
 <div class="posts">
