@@ -4,8 +4,6 @@ title: Projects
 permalink: /projects/
 ---
 
-# My Projects
-
 I enjoy building tools and solutions that solve real problems. Here are some of my recent projects:
 
 ## Featured Projects
