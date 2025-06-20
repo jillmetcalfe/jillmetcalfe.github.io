@@ -1,9 +1,7 @@
 ---
 layout: home
-title: Home
+title: Welcome 👋
 ---
-
-# Welcome 👋
 
 I'm **Jill Metcalfe**, a developer passionate about creating practical solutions to real-world problems.
 
