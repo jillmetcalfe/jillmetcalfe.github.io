@@ -48,6 +48,10 @@ header_pages:
   - bookshelf.md
   - now.md
 
+# Exclude template files from the build (they have placeholder dates that break Jekyll)
+exclude:
+  - templates/
+
 # Plugins
 plugins:
   - jekyll-feed
