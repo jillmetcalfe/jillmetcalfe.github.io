@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-icons.min.css">
   
   <!-- Custom CSS (loads after fonts and overrides Bootstrap) -->
-  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}?v={{ site.time | date: '%s' }}">
   
   <!-- Dark Mode Theme Script (must be in head to prevent flicker) -->
   <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
