@@ -86,7 +86,8 @@ async function syncPost(page, fallbackDate) {
   // Convert Notion page to Markdown
   const mdBlocks = await n2m.pageToMarkdown(page.id);
   const mdResult = n2m.toMarkdownString(mdBlocks);
-  const markdown = typeof mdResult === "string" ? mdResult : mdResult.parent;
+  const rawMarkdown = typeof mdResult === "string" ? mdResult : mdResult.parent;
+  const markdown = rawMarkdown || "";
 
   // Build frontmatter based on page type
   let frontmatter;
