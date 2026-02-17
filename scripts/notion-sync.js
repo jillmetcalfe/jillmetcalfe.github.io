@@ -105,7 +105,7 @@ async function syncPost(page, fallbackDate) {
 
     // If no page content, generate a summary for the body
     if (!markdown.trim()) {
-      markdown = buildBookBody({ title, author, bookStatus, started });
+      markdown = buildBookBody({ title, author, bookStatus, started, finished });
     }
   } else {
     frontmatter = buildFrontmatter({ title, date, tags });
@@ -167,12 +167,13 @@ function getDateProp(page, propName) {
 
 // --- Helpers ---
 
-function buildBookBody({ title, author, bookStatus, started }) {
+function buildBookBody({ title, author, bookStatus, started, finished }) {
   const lines = [];
   if (author) lines.push(`**by ${author}**`);
   lines.push("");
   if (bookStatus) lines.push(`**Status:** ${bookStatus}\n`);
   if (started) lines.push(`**Started:** ${formatDate(started)}`);
+  if (finished) lines.push(`**Finished:** ${formatDate(finished)}`);
   return lines.join("\n");
 }
 
