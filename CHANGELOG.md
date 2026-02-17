@@ -4,6 +4,10 @@ All notable changes to the jillmetcalfe.github.io site, described in plain langu
 
 ---
 
+## 2026-02-18 (continued)
+- Added README.md — plain-language guide covering how publishing works, page types, scheduling, toggles, Make.com PAT renewal, and troubleshooting
+- Toggle blocks in Notion are now excluded from published content — use them to store drafts, unused headings, or private notes
+
 ## 2026-02-18
 - Added bookshelf sync — books from Notion now sync to the site with author, status, stars, and dates
 - Added About page sync from Notion, with a subtle "Last updated" date at the top
