@@ -13,7 +13,7 @@ permalink: /bookshelf/
 {% assign books_by_status = site.books | group_by: "status" %}
 
 {% for status_group in books_by_status %}
-  {% if status_group.name == "Currently Reading" %}
+  {% if status_group.name == "Reading" %}
 ### 📖 Currently Reading
     {% for book in status_group.items %}
 - **[{{ book.title }}]({{ book.url }})** by {{ book.author }}
@@ -23,19 +23,28 @@ permalink: /bookshelf/
 
 {% for status_group in books_by_status %}
   {% if status_group.name == "Finished" %}
-### ✅ Recently Finished
+### ✅ Finished
     {% assign finished_books = status_group.items | sort: "finished" | reverse %}
-    {% for book in finished_books limit: 5 %}
+    {% for book in finished_books %}
 - **[{{ book.title }}]({{ book.url }})** by {{ book.author }} {% if book.stars %}({{ book.stars }}⭐){% endif %}
     {% endfor %}
   {% endif %}
 {% endfor %}
 
 {% for status_group in books_by_status %}
-  {% if status_group.name == "Want to Read" %}
-### 📚 Want to Read
+  {% if status_group.name == "Queued" %}
+### 📚 Queued
     {% for book in status_group.items %}
 - **{{ book.title }}** by {{ book.author }}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+{% for status_group in books_by_status %}
+  {% if status_group.name == "DNF" %}
+### 🚫 Did Not Finish
+    {% for book in status_group.items %}
+- **[{{ book.title }}]({{ book.url }})** by {{ book.author }}
     {% endfor %}
   {% endif %}
 {% endfor %}

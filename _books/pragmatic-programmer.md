@@ -3,7 +3,7 @@ layout: page
 title: "The Pragmatic Programmer"
 author: "David Thomas and Andrew Hunt"
 categories: [programming, software-development, technical]
-status: "Currently Reading"
+status: "Reading"
 started: "2025-06-01"
 ---
 
