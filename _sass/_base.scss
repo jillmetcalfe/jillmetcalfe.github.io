@@ -64,6 +64,11 @@ a {
       color: var(--global-theme-color);
       text-decoration: none;
     }
+
+    &.active {
+      color: var(--global-theme-color);
+      font-weight: 500;
+    }
   }
 }
 
