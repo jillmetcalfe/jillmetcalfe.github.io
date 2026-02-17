@@ -10,7 +10,8 @@ const databaseId = process.env.NOTION_DATABASE_ID;
 async function main() {
   console.log("Querying Notion database for posts ready to publish...");
 
-  const now = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const now = new Date().toISOString(); // Full timestamp for time-aware scheduling
+  const today = now.split("T")[0]; // YYYY-MM-DD for fallback date
 
   // Find posts with Status = "Ready to publish" and Date <= today (or no date)
   const response = await notion.databases.query({
@@ -49,7 +50,7 @@ async function main() {
 
   for (const page of posts) {
     try {
-      const result = await syncPost(page, now);
+      const result = await syncPost(page, today);
       synced.push(result);
     } catch (err) {
       console.error(`Failed to sync page ${page.id}: ${err.message}`);
