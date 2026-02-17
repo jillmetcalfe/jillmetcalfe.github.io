@@ -110,9 +110,9 @@ async function syncPost(page, fallbackDate) {
   // Build the full file content
   const fileContent = `---\n${frontmatter}---\n\n${markdown}\n`;
 
-  // Determine output path based on Page property
-  const slug = slugify(title);
-  const outputPath = getOutputPath(pageType, date, slug);
+  // Determine output path based on Page property (use page ID for stable filenames)
+  const pageId = page.id.replace(/-/g, "");
+  const outputPath = getOutputPath(pageType, date, pageId);
 
   // Write the file
   const fullPath = path.join(__dirname, "..", outputPath);
