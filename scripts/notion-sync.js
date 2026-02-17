@@ -87,7 +87,7 @@ async function syncPost(page, fallbackDate) {
   const mdBlocks = await n2m.pageToMarkdown(page.id);
   const mdResult = n2m.toMarkdownString(mdBlocks);
   const rawMarkdown = typeof mdResult === "string" ? mdResult : mdResult.parent;
-  const markdown = rawMarkdown || "";
+  let markdown = rawMarkdown || "";
 
   // Build frontmatter based on page type
   let frontmatter;
@@ -98,6 +98,11 @@ async function syncPost(page, fallbackDate) {
     const started = getDateProp(page, "Started");
     const finished = getDateProp(page, "Finished");
     frontmatter = buildBookFrontmatter({ title, author, bookStatus, stars, started, finished, tags });
+
+    // If no page content, generate a summary for the body
+    if (!markdown.trim()) {
+      markdown = buildBookBody({ title, author, bookStatus, started });
+    }
   } else {
     frontmatter = buildFrontmatter({ title, date, tags });
   }
@@ -157,6 +162,20 @@ function getDateProp(page, propName) {
 }
 
 // --- Helpers ---
+
+function buildBookBody({ title, author, bookStatus, started }) {
+  const lines = [`# ${title}`];
+  if (author) lines.push(`**by ${author}**`);
+  lines.push("");
+  if (bookStatus) lines.push(`**Status:** ${bookStatus}`);
+  if (started) lines.push(`**Started:** ${formatDate(started)}`);
+  return lines.join("\n");
+}
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+}
 
 function buildBookFrontmatter({ title, author, bookStatus, stars, started, finished, tags }) {
   let fm = `layout: page\n`;
