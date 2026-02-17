@@ -52,11 +52,11 @@ html[data-theme-setting="dark"] {
   }
 
   #light-toggle-dark {
-    display: inline-block;
+    display: none;
   }
 
   #light-toggle-light {
-    display: none;
+    display: inline-block;
   }
 }
 
@@ -66,11 +66,11 @@ html[data-theme-setting="light"] {
   }
 
   #light-toggle-dark {
-    display: none;
+    display: inline-block;
   }
 
   #light-toggle-light {
-    display: inline-block;
+    display: none;
   }
 }
 
