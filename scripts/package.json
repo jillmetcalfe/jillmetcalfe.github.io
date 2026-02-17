@@ -1,0 +1,13 @@
+{
+  "name": "notion-sync",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Syncs Notion posts to Jekyll markdown files",
+  "scripts": {
+    "sync": "node notion-sync.js"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.0",
+    "@tryfabric/martian": "^1.2.0"
+  }
+}

@@ -51,6 +51,7 @@ header_pages:
 # Exclude template files from the build (they have placeholder dates that break Jekyll)
 exclude:
   - templates/
+  - scripts/
 
 # Plugins
 plugins:
