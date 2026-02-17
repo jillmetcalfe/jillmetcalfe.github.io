@@ -41,6 +41,13 @@ a {
   position: sticky;
   top: 0;
   z-index: 1040;
+
+  .progress-bar {
+    height: 3px;
+    width: 0%;
+    background-color: var(--global-theme-color);
+    transition: width 50ms ease;
+  }
 }
 
 .site-title {
