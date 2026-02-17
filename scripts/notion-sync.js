@@ -1,9 +1,10 @@
 const { Client } = require("@notionhq/client");
-const { notionToMarkdown } = require("@tryfabric/martian");
+const { NotionToMarkdown } = require("notion-to-md");
 const fs = require("fs");
 const path = require("path");
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
+const n2m = new NotionToMarkdown({ notionClient: notion });
 const databaseId = process.env.NOTION_DATABASE_ID;
 
 async function main() {
@@ -82,11 +83,10 @@ async function syncPost(page, fallbackDate) {
 
   console.log(`Syncing: "${title}" (${date})`);
 
-  // Fetch all blocks (the page content)
-  const blocks = await fetchAllBlocks(page.id);
-
-  // Convert Notion blocks to Markdown
-  const markdown = notionToMarkdown(blocks);
+  // Convert Notion page to Markdown
+  const mdBlocks = await n2m.pageToMarkdown(page.id);
+  const mdResult = n2m.toMarkdownString(mdBlocks);
+  const markdown = typeof mdResult === "string" ? mdResult : mdResult.parent;
 
   // Build frontmatter
   const frontmatter = buildFrontmatter({ title, date, tags });
@@ -105,23 +105,6 @@ async function syncPost(page, fallbackDate) {
   console.log(`Wrote: ${outputPath}`);
 
   return { pageId: page.id, title, outputPath };
-}
-
-async function fetchAllBlocks(pageId) {
-  const blocks = [];
-  let cursor;
-
-  do {
-    const response = await notion.blocks.children.list({
-      block_id: pageId,
-      start_cursor: cursor,
-      page_size: 100,
-    });
-    blocks.push(...response.results);
-    cursor = response.has_more ? response.next_cursor : undefined;
-  } while (cursor);
-
-  return blocks;
 }
 
 // --- Property extractors ---
