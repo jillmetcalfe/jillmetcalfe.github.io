@@ -108,6 +108,8 @@ async function syncPost(page, fallbackDate) {
     if (!markdown.trim()) {
       markdown = buildBookBody({ title, author, bookStatus, started, finished });
     }
+  } else if (pageType === "About") {
+    frontmatter = buildPageFrontmatter({ title: "About", permalink: "/about/" });
   } else {
     frontmatter = buildFrontmatter({ title, date, tags });
   }
@@ -195,6 +197,13 @@ function buildBookFrontmatter({ title, author, bookStatus, stars, started, finis
   return fm;
 }
 
+function buildPageFrontmatter({ title, permalink }) {
+  let fm = `layout: page\n`;
+  fm += `title: ${title}\n`;
+  fm += `permalink: ${permalink}\n`;
+  return fm;
+}
+
 function buildFrontmatter({ title, date, tags }) {
   let fm = `layout: post\n`;
   fm += `title: "${title.replace(/"/g, '\\"')}"\n`;
@@ -218,6 +227,8 @@ function getOutputPath(pageType, date, slug) {
       return `_posts/${date}-${slug}.md`;
     case "Bookshelf":
       return `_books/${slug}.md`;
+    case "About":
+      return `about.md`;
     default:
       return `_posts/${date}-${slug}.md`;
   }
