@@ -62,7 +62,7 @@ async function main() {
     try {
       const properties = {
         Status: { status: { name: "Published" } },
-        "Last updated": { date: { start: publishedAt } },
+        "Last Updated": { date: { start: publishedAt } },
       };
       if (!hadDate) {
         properties.Date = { date: { start: publishedAt } };
