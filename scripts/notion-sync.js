@@ -88,9 +88,9 @@ async function syncPost(page, fallbackDate) {
 
   console.log(`Syncing: "${title}" (${pageType}, ${date})`);
 
-  // Convert Notion page to Markdown
+  // Convert Notion page to Markdown (excluding toggle blocks)
   const mdBlocks = await n2m.pageToMarkdown(page.id);
-  const mdResult = n2m.toMarkdownString(mdBlocks);
+  const mdResult = n2m.toMarkdownString(removeToggles(mdBlocks));
   const rawMarkdown = typeof mdResult === "string" ? mdResult : mdResult.parent;
   let markdown = rawMarkdown || "";
 
@@ -130,6 +130,16 @@ async function syncPost(page, fallbackDate) {
   console.log(`Wrote: ${outputPath}`);
 
   return { pageId: page.id, title, outputPath, hadDate };
+}
+
+// --- Content filters ---
+
+// Recursively removes toggle blocks so their content is never published.
+// Use toggles in Notion to store draft sections, unused headings, or private notes.
+function removeToggles(blocks) {
+  return blocks
+    .filter((block) => block.type !== "toggle")
+    .map((block) => ({ ...block, children: removeToggles(block.children || []) }));
 }
 
 // --- Property extractors ---
