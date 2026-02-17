@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-<p style="color: var(--global-text-color-light); font-size: 0.9em;">Last updated: February 17, 2026</p>
+<p style="color: var(--global-text-color-light); font-size: 0.9em; font-style: italic;">Last updated: February 17, 2026</p>
 
 
 ## What I Do
