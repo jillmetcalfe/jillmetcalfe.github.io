@@ -81,15 +81,25 @@ async function syncPost(page, fallbackDate) {
   const tags = getTags(page);
   const pageType = getPage(page);
 
-  console.log(`Syncing: "${title}" (${date})`);
+  console.log(`Syncing: "${title}" (${pageType}, ${date})`);
 
   // Convert Notion page to Markdown
   const mdBlocks = await n2m.pageToMarkdown(page.id);
   const mdResult = n2m.toMarkdownString(mdBlocks);
   const markdown = typeof mdResult === "string" ? mdResult : mdResult.parent;
 
-  // Build frontmatter
-  const frontmatter = buildFrontmatter({ title, date, tags });
+  // Build frontmatter based on page type
+  let frontmatter;
+  if (pageType === "Bookshelf") {
+    const author = getSelect(page, "Author");
+    const bookStatus = getSelect(page, "Book Status");
+    const stars = getSelect(page, "Stars");
+    const started = getDateProp(page, "Started");
+    const finished = getDateProp(page, "Finished");
+    frontmatter = buildBookFrontmatter({ title, author, bookStatus, stars, started, finished, tags });
+  } else {
+    frontmatter = buildFrontmatter({ title, date, tags });
+  }
 
   // Build the full file content
   const fileContent = `---\n${frontmatter}---\n\n${markdown}\n`;
@@ -133,7 +143,31 @@ function getPage(page) {
   return pageProp.select.name || "Blog";
 }
 
+function getSelect(page, propName) {
+  const prop = page.properties[propName];
+  if (!prop || !prop.select) return null;
+  return prop.select.name || null;
+}
+
+function getDateProp(page, propName) {
+  const prop = page.properties[propName];
+  if (!prop || !prop.date || !prop.date.start) return null;
+  return prop.date.start;
+}
+
 // --- Helpers ---
+
+function buildBookFrontmatter({ title, author, bookStatus, stars, started, finished, tags }) {
+  let fm = `layout: page\n`;
+  fm += `title: "${title.replace(/"/g, '\\"')}"\n`;
+  if (author) fm += `author: "${author}"\n`;
+  if (tags.length > 0) fm += `categories: [${tags.join(", ")}]\n`;
+  if (bookStatus) fm += `status: "${bookStatus}"\n`;
+  if (started) fm += `started: "${started}"\n`;
+  if (finished) fm += `finished: "${finished}"\n`;
+  if (stars) fm += `stars: ${stars}\n`;
+  return fm;
+}
 
 function buildFrontmatter({ title, date, tags }) {
   let fm = `layout: post\n`;
