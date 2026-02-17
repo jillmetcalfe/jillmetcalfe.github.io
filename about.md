@@ -4,6 +4,8 @@ title: About
 permalink: /about/
 ---
 
+*Last updated: February 17, 2026*
+
 
 ## What I Do
 
