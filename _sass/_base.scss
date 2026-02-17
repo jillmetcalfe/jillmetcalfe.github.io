@@ -46,8 +46,9 @@ a {
     height: 1px;
     width: 0%;
     background-color: var(--global-theme-color);
-    transition: width 50ms ease;
-    margin-top: -1px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 }
 
