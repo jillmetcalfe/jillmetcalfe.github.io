@@ -168,10 +168,10 @@ function getDateProp(page, propName) {
 // --- Helpers ---
 
 function buildBookBody({ title, author, bookStatus, started }) {
-  const lines = [`# ${title}`];
+  const lines = [];
   if (author) lines.push(`**by ${author}**`);
   lines.push("");
-  if (bookStatus) lines.push(`**Status:** ${bookStatus}`);
+  if (bookStatus) lines.push(`**Status:** ${bookStatus}\n`);
   if (started) lines.push(`**Started:** ${formatDate(started)}`);
   return lines.join("\n");
 }
