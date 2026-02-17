@@ -56,15 +56,17 @@ async function main() {
     }
   }
 
-  // Update status to "Published" for all successfully synced posts
-  for (const { pageId, title } of synced) {
+  // Update status and publication date for all successfully synced posts
+  const publishedAt = new Date().toISOString();
+  for (const { pageId, title, hadDate } of synced) {
     try {
-      await notion.pages.update({
-        page_id: pageId,
-        properties: {
-          Status: { status: { name: "Published" } },
-        },
-      });
+      const properties = {
+        Status: { status: { name: "Published" } },
+      };
+      if (!hadDate) {
+        properties.Date = { date: { start: publishedAt } };
+      }
+      await notion.pages.update({ page_id: pageId, properties });
       console.log(`Marked "${title}" as Published in Notion.`);
     } catch (err) {
       console.error(`Failed to update status for "${title}": ${err.message}`);
@@ -77,6 +79,7 @@ async function main() {
 async function syncPost(page, fallbackDate) {
   // Extract properties
   const title = getTitle(page);
+  const hadDate = !!getDate(page);
   const date = getDate(page) || fallbackDate;
   const tags = getTags(page);
   const pageType = getPage(page);
@@ -120,7 +123,7 @@ async function syncPost(page, fallbackDate) {
   fs.writeFileSync(fullPath, fileContent, "utf-8");
   console.log(`Wrote: ${outputPath}`);
 
-  return { pageId: page.id, title, outputPath };
+  return { pageId: page.id, title, outputPath, hadDate };
 }
 
 // --- Property extractors ---
