@@ -110,6 +110,8 @@ async function syncPost(page, fallbackDate) {
     }
   } else if (pageType === "About") {
     frontmatter = buildPageFrontmatter({ title: "About", permalink: "/about/" });
+    const updatedDate = formatDate(new Date().toISOString().split("T")[0]);
+    markdown = `*Last updated: ${updatedDate}*\n\n${markdown}`;
   } else {
     frontmatter = buildFrontmatter({ title, date, tags });
   }
