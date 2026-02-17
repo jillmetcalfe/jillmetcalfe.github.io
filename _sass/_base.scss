@@ -43,10 +43,11 @@ a {
   z-index: 1040;
 
   .progress-bar {
-    height: 3px;
+    height: 1px;
     width: 0%;
     background-color: var(--global-theme-color);
     transition: width 50ms ease;
+    margin-top: -1px;
   }
 }
 
