@@ -43,13 +43,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # If Notion is unreachable or the token has expired, say so loudly but carry on.
+      # The site should still build and deploy from the content already committed —
+      # a publishing problem must never take the live site down.
       - name: Pull new content from Notion
+        id: sync
+        continue-on-error: true
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
         run: node sync.js
 
+      - name: Warn if the Notion sync failed
+        if: steps.sync.outcome == 'failure'
+        run: echo "::warning::Notion sync failed - deploying existing content. The API key may have expired; regenerate it at notion.so/my-integrations."
+
       - name: Save any new content back to the repo
+        if: steps.sync.outcome == 'success'
         run: |
           git config user.name "notion-sync[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
