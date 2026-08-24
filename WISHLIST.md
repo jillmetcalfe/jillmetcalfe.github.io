@@ -8,6 +8,9 @@ Future ideas and improvements for the site. Items are marked ✅ with a date whe
 - ✅ 2026-02-17 Dark mode toggle button
 - ✅ 2026-02-17 Sticky top nav bar (stays visible when you scroll)
 - ✅ 2026-02-17 Notion as CMS — Use Notion API + GitHub Actions to auto-publish posts. Approach: create a Notion database for posts, write a script to pull content via the API and convert to Jekyll markdown, run it via a GitHub Action (scheduled or on-demand). Needs: Notion integration/API key, a posts database in Notion, a conversion script, a GitHub Action workflow.
+- [ ] Bump the GitHub Actions versions. The build warns that `actions/checkout@v4`,
+  `actions/setup-node@v4` and `actions/upload-artifact@v4` target Node 20, which
+  GitHub is retiring. Nothing is broken today; they just need moving to `@v5`
 - [ ] **Accent colour isn't right yet.** Magenta `#B509AC` (from al-folio) fixed the
   real problem — petrol was only 2.3:1 from the ink, so links read as off-black — but
   it's too hot against the cream paper. Next thing to try: a deeper, less neon magenta
