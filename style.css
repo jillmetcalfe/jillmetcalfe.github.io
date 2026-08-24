@@ -1,0 +1,595 @@
+/* ==========================================================================
+   jillmetcalfe.com — stylesheet
+   Written directly from DESIGN.md. If you change a design decision, change it
+   in DESIGN.md first, then here. No framework, no build step, no SCSS.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens — colours, spacing, type
+   Change the three --accent-* lines to reskin the whole site.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Base — light theme (the canonical identity) */
+  --paper:      #F5F2EE;
+  --surface:    #FBFAF6;
+  --ink:        #222120;
+  --ink-soft:   #56544F;
+  --ink-faint:  #8C8983;
+  --line:       #E0DCD4;
+  --code-bg:    #ECE8E0;
+
+  /* Accent — magenta in light mode. These three lines control every link,
+     button and highlight on the page; change them and the site changes.
+     Why magenta and not a cool colour: a dark accent like Petrol (#156269) sits
+     at almost the same lightness as the ink, so links read as "slightly off-black"
+     rather than as a colour. Magenta is roughly as dark but far more saturated,
+     so it separates from the text by hue instead of by brightness.
+     Back-pocket alternatives from DESIGN.md §2, all cool and all quieter:
+       Petrol  #CFE4E4 / #156269 / #0E4348
+       Mauve   #DED5E6 / #655777 / #473C58
+       Green   #D3E3D2 / #357046 / #224D30
+       Blue    #D2E0EE / #2E5E8C / #1E4366 */
+  --accent-tint: #F2DCF0;   /* callout backgrounds, text selection */
+  --accent:      #B509AC;   /* links, primary button — 5.2:1 on paper */
+  --accent-dark: #8A0784;   /* hover, deep emphasis — 7.7:1 on paper */
+
+  /* Shadows are tinted with ink, never pure black */
+  --shadow-1: 0 1px 2px  rgba(34, 33, 32, 0.04);
+  --shadow-2: 0 6px 20px rgba(34, 33, 32, 0.08);
+  --shadow-3: 0 12px 32px rgba(34, 33, 32, 0.12);
+
+  /* Spacing scale (8px base) — use these and only these */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+
+  /* Layout */
+  --reading-width: 680px;
+  --gutter: var(--s-5);
+
+  /* Type */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* Dark theme. Applied when the system asks for it, unless the reader has
+   explicitly chosen light; or when the reader has explicitly chosen dark. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:     #1B1A18;
+    --surface:   #242320;
+    --ink:       #ECE7DD;
+    --ink-soft:  #A6A29A;
+    --ink-faint: #7C786F;
+    --line:      #37352F;
+    --code-bg:   #242320;
+
+    --accent-tint: #16323B;
+    --accent:      #2698BA;   /* 5.2:1 on the dark paper */
+    --accent-dark: #7BCFE8;   /* hover goes lighter in dark mode, not darker */
+
+    --shadow-1: 0 1px 2px  rgba(0, 0, 0, 0.20);
+    --shadow-2: 0 6px 20px rgba(0, 0, 0, 0.30);
+    --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.40);
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:     #1B1A18;
+  --surface:   #242320;
+  --ink:       #ECE7DD;
+  --ink-soft:  #A6A29A;
+  --ink-faint: #7C786F;
+  --line:      #37352F;
+  --code-bg:   #242320;
+
+  --accent-tint: #16323B;
+  --accent:      #2698BA;
+  --accent-dark: #7BCFE8;
+
+  --shadow-1: 0 1px 2px  rgba(0, 0, 0, 0.20);
+  --shadow-2: 0 6px 20px rgba(0, 0, 0, 0.30);
+  --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.40);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & base
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.1875rem;   /* 19px — the reading size */
+  line-height: 1.7;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img, video { max-width: 100%; height: auto; }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: var(--s-7) 0;
+}
+
+::selection {
+  background: var(--accent-tint);
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography
+   -------------------------------------------------------------------------- */
+
+h1, h2, h3, h4 {
+  scroll-margin-top: var(--s-8);
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+  font-variation-settings: "SOFT" 0, "WONK" 0;
+}
+
+h1 {
+  font-size: 2rem;             /* 32px on mobile */
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: 1.625rem;
+  line-height: 1.2;
+  margin-top: var(--s-7);
+  margin-bottom: var(--s-4);
+}
+
+h3 {
+  font-size: 1.3125rem;
+  line-height: 1.3;
+  margin-top: var(--s-6);
+  margin-bottom: var(--s-3);
+}
+
+h4 {
+  font-size: 1.125rem;
+  line-height: 1.4;
+  margin-top: var(--s-5);
+  margin-bottom: var(--s-2);
+}
+
+p { margin: 0 0 var(--s-5); }
+
+ul, ol { margin: 0 0 var(--s-5); padding-left: var(--s-5); }
+li { margin-bottom: var(--s-2); }
+li > ul, li > ol { margin-top: var(--s-2); margin-bottom: 0; }
+
+strong { font-weight: 600; }
+em { font-style: italic; }
+
+small, .meta {
+  font-size: 0.9375rem;   /* 15px */
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.lead {
+  font-size: 1.375rem;    /* 22px */
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* --------------------------------------------------------------------------
+   4. Links
+   -------------------------------------------------------------------------- */
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-tint);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+a:hover {
+  color: var(--accent-dark);
+  text-decoration-color: currentColor;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   5. Layout shell
+   -------------------------------------------------------------------------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--reading-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+main {
+  flex: 1 0 auto;
+  padding: var(--s-7) 0 var(--s-9);
+}
+
+/* --------------------------------------------------------------------------
+   6. Header & navigation
+   -------------------------------------------------------------------------- */
+
+/* The bar stays put at the top of the window while you scroll. Kept deliberately
+   short so it never eats much of a phone screen — the breathing room that used to
+   live up here now sits below it, at the top of <main>. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-1) var(--s-4);
+  padding-top: var(--s-2);
+  padding-bottom: var(--s-2);
+}
+
+.site-title {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.site-title:hover { color: var(--accent); }
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+
+.site-nav a {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  padding: var(--s-2) 0;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover { color: var(--accent); }
+
+.site-nav a[aria-current="page"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.theme-toggle {
+  background: none;
+  border: 0;
+  padding: var(--s-2);
+  margin: 0;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1;
+  border-radius: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover { color: var(--accent); background: var(--accent-tint); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* --------------------------------------------------------------------------
+   7. Prose (post & page bodies)
+   -------------------------------------------------------------------------- */
+
+.prose > *:first-child { margin-top: 0; }
+.prose > *:last-child { margin-bottom: 0; }
+
+.prose blockquote {
+  margin: var(--s-6) 0;
+  padding: var(--s-4) var(--s-5);
+  border-left: 3px solid var(--accent);
+  background: var(--accent-tint);
+  border-radius: 0 8px 8px 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.375rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.prose blockquote p:last-child { margin-bottom: 0; }
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.prose pre {
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: var(--s-5);
+  overflow-x: auto;
+  margin: var(--s-6) 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+.prose img {
+  border-radius: 12px;
+  margin: var(--s-6) 0;
+  display: block;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--s-6) 0;
+  font-size: 1rem;
+}
+
+.prose th, .prose td {
+  text-align: left;
+  padding: var(--s-3) var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.prose th {
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+
+.table-scroll { overflow-x: auto; margin: var(--s-6) 0; }
+.table-scroll table { margin: 0; }
+
+/* --------------------------------------------------------------------------
+   8. Post & page headers
+   -------------------------------------------------------------------------- */
+
+.page-header { margin-bottom: var(--s-7); }
+
+.page-header h1 { margin-bottom: var(--s-3); }
+
+.page-header .meta {
+  display: block;
+  color: var(--ink-faint);
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 1px var(--s-3);
+  margin-right: var(--s-2);
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   9. Post lists
+   -------------------------------------------------------------------------- */
+
+.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-list > li { margin: 0 0 var(--s-6); }
+
+.post-list h2,
+.post-list h3 {
+  font-size: 1.375rem;
+  line-height: 1.3;
+  margin: 0 0 var(--s-1);
+}
+
+.post-list a { text-decoration: none; color: var(--ink); }
+.post-list a:hover { color: var(--accent); }
+
+.post-list .meta { display: block; margin-bottom: var(--s-2); }
+
+.post-list p { margin: var(--s-2) 0 0; color: var(--ink-soft); font-size: 1.0625rem; }
+
+/* Card variant — used on the homepage */
+.card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: var(--s-5);
+  box-shadow: var(--shadow-1);
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--accent-tint);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-1px);
+}
+
+.card h3 {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  margin: 0 0 var(--s-1);
+  color: var(--ink);
+}
+
+.card .meta { display: block; margin-bottom: var(--s-2); }
+.card p { margin: 0; color: var(--ink-soft); font-size: 1.0625rem; }
+
+/* --------------------------------------------------------------------------
+   10. Bookshelf
+   -------------------------------------------------------------------------- */
+
+.book-group { margin-bottom: var(--s-7); }
+
+.book-list { list-style: none; margin: 0; padding: 0; }
+
+.book-list li {
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.book-list li:last-child { border-bottom: 0; }
+
+.book-title {
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.book-title:hover { color: var(--accent); }
+
+.book-author { color: var(--ink-soft); font-size: 1rem; }
+
+.stars { color: var(--accent); font-size: 0.9375rem; letter-spacing: 1px; }
+
+/* --------------------------------------------------------------------------
+   11. Buttons
+   -------------------------------------------------------------------------- */
+
+.button {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.button:hover {
+  background: var(--accent-dark);
+  color: var(--paper);
+  transform: translateY(-1px);
+}
+
+.button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.button-soft {
+  background: var(--accent-tint);
+  color: var(--accent-dark);
+  border: 1px solid var(--accent);
+}
+
+.button-soft:hover { background: var(--accent-tint); color: var(--accent-dark); }
+
+/* --------------------------------------------------------------------------
+   12. Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  flex-shrink: 0;
+  border-top: 1px solid var(--line);
+  padding: var(--s-6) 0;
+  color: var(--ink-faint);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.site-footer a { color: var(--ink-soft); text-decoration-color: var(--line); }
+.site-footer a:hover { color: var(--accent); }
+
+.site-footer p { margin: 0 0 var(--s-2); }
+.site-footer p:last-child { margin-bottom: 0; }
+
+/* --------------------------------------------------------------------------
+   13. Responsive — scale up, never down
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 640px) {
+  :root { --gutter: var(--s-6); }
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.75rem; }
+
+  .site-header .wrap {
+    padding-top: var(--s-3);
+    padding-bottom: var(--s-3);
+  }
+  .site-nav { gap: var(--s-5); }
+  .site-nav a { font-size: 1rem; }
+}
+
+@media (min-width: 1024px) {
+  :root { --gutter: var(--s-7); }
+  h1 { font-size: 3rem; }       /* 48px */
+  h2 { font-size: 2rem; }       /* 32px */
+  h3 { font-size: 1.5rem; }     /* 24px */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

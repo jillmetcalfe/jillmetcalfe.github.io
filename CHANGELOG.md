@@ -1,8 +1,39 @@
 # Changelog
 
-All notable changes to the jillmetcalfe.github.io site, described in plain language.
+All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ---
+
+## 2026-08-24 (rebuild)
+- **The top navigation bar now stays put when you scroll.** It was also made much
+  shorter as part of this — a bar that's always on screen is rented space, so the
+  generous gap that used to sit above the site title now sits below the bar instead.
+  The page looks the same standing still, but the sticky bar costs ~60px rather than ~110px
+- **Links are magenta now, not petrol.** The old petrol accent was only 2.3:1 apart
+  from the body text in lightness, so links read as "slightly off-black" rather than
+  as a colour. Magenta (`#B509AC`) is about as dark but far more saturated, so it
+  separates by hue instead of by brightness. Dark mode gets cyan (`#2698BA`) for the
+  same reason in reverse. Both values come from al-folio, the theme the old site used.
+  **Provisional** — the magenta reads too hot against the cream and is still being
+  worked out; see WISHLIST.md
+- **Removed Jekyll entirely.** The site is now built by one small script (`build.js`)
+  instead of a static site generator. No more Ruby, no Gemfile, no `_config.yml`,
+  no `_layouts`/`_includes`/`_sass`, no Bootstrap, no theme. Four npm packages total.
+  Prompted by michaeldeank.com/page/how-i-built-this — Jekyll was carrying its weight
+  for maybe 200 lines of work
+- **Applied DESIGN.md.** The site now looks the way DESIGN.md always said it should:
+  cool cream paper, Fraunces headings, IBM Plex Sans body text, a single Petrol accent,
+  and a 680px reading column. Bootstrap and Roboto are gone. All styling is in one
+  hand-written `style.css` you can read top to bottom
+- **Now and Projects now sync from Notion** like About already did, and the homepage
+  intro does too. Everything is written in one place now
+- Blog posts get readable web addresses (`/blog/john-is-cool/`) instead of the long
+  Notion ID they used to use
+- Local preview no longer needs Ruby — `npm start` builds the site and opens it at
+  localhost:8080
+- Added a sitemap and robots.txt; kept the RSS feed
+- Renamed the project folder from `jillmetcalfe dot com` to `jillmetcalfe-website`
+  so terminal commands don't need quote marks around the path
 
 ## 2026-08-24
 - Fixed the site address in `_config.yml` — it said `jillmetcalfe.github.io` but the

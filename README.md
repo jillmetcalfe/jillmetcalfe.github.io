@@ -1,103 +1,145 @@
 # How This Site Works — A Guide for Future Jill
 
-This is a reference for when you come back after time away and need a reminder of how everything fits together.
+A reference for when you come back after time away.
 
 ---
 
-## The big picture
+## The one-paragraph version
 
-Your site (jillmetcalfe.github.io) is a Jekyll site hosted on GitHub Pages. You write content in Notion; it automatically publishes to your site. You don't need to touch any code to publish.
-
----
-
-## Publishing a blog post
-
-1. Write your post in the Notion database
-2. Set the **Status** to `Ready to publish`
-3. Set a **Date** if you want it to appear on a specific day (or leave it blank to publish immediately)
-4. Wait up to 30 minutes — the sync runs on a schedule
-
-The sync will automatically change the status to `Published` in Notion once it's done.
-
-**To publish immediately:** You can trigger the sync manually — see below.
+You write in Notion. Every 30 minutes a robot checks Notion for anything marked
+**Ready to publish**, saves it into this folder as plain text, turns that text into
+web pages, and puts them on jillmetcalfe.com. You never have to touch code to publish.
 
 ---
 
-## Page types
+## Publishing something
 
-The **Page** property in Notion controls where your content goes:
+1. Write it in the Notion database (**jillmetcalfe.com**)
+2. Set **Page** to say where it goes (see the table below)
+3. Set **Status** to `Ready to publish`
+4. Wait up to 30 minutes
 
-| Page value | Where it ends up |
+Notion flips the Status to `Published` by itself once it's done.
+
+**To publish right now instead of waiting:** GitHub repo → **Actions** tab → **Publish** → **Run workflow**.
+
+**To schedule for later:** set the **Date** field to a future date and time. It will
+sit and wait until that moment passes.
+
+### Where each Page value ends up
+
+| Page | Lands at | Notes |
+|---|---|---|
+| Blog | `/blog/your-title/` | Also appears in the blog list and the RSS feed |
+| Bookshelf | `/bookshelf/the-book/` | Grouped on `/bookshelf/` by Book Status |
+| About | `/about/` | Replaces the whole page |
+| Now | `/now/` | Replaces the whole page |
+| Projects | `/projects/` | Replaces the whole page |
+| Home | `/` | The intro paragraph on the front page |
+| *(blank)* | treated as Blog | |
+
+### Keeping something in Notion without publishing it
+
+Put it inside a **toggle**. Toggles are skipped entirely — the arrow and everything
+under it. Use them for draft sections, private notes, and headings you're not ready
+to use yet. Works on every page type.
+
+---
+
+## Looking at the site before it goes live
+
+Open Terminal, then:
+
+```
+cd ~/Developer/Claude\ Code/Jill/jillmetcalfe-website
+npm start
+```
+
+Then open **http://localhost:8080** in your browser. Press **Ctrl-C** in Terminal to stop it.
+
+What those commands mean:
+- `cd` — "change directory", i.e. go to this folder
+- `npm start` — builds the site and starts a little web server on your own computer
+
+If it complains about missing packages, run `npm install` once first.
+
+---
+
+## What every file does
+
+| File / folder | What it is |
 |---|---|
-| Blog | A blog post at `/blog/` |
-| Bookshelf | A book entry at `/bookshelf/` |
-| About | Overwrites your About page |
-| (blank or anything else) | Treated as a blog post |
+| `content/` | Your writing, as plain text. Comes from Notion. **This is the site.** |
+| `content/posts/` | Blog posts |
+| `content/books/` | Bookshelf entries |
+| `content/pages/` | About, Now, Projects, Home, and the Bookshelf intro |
+| `build.js` | Turns `content/` into finished web pages. ~200 lines, readable top to bottom |
+| `sync.js` | Fetches from Notion and writes into `content/` |
+| `serve.js` | The little local web server for previewing |
+| `style.css` | Every design decision on the site. One file, no framework |
+| `DESIGN.md` | *Why* the design looks like it does. Change this first, then `style.css` |
+| `templates/base.html` | The wrapper every page sits inside — header, footer, fonts |
+| `site/` | The built website. Thrown away and rebuilt every time. Never edit by hand |
+| `CNAME` | Tells GitHub the site lives at jillmetcalfe.com |
+| `.github/workflows/publish.yml` | The robot: sync, build, publish |
 
 ---
 
-## Scheduling a post for a future date
+## The commands
 
-Set the **Date** field to a future date and time. The sync runs every 30 minutes and will only publish it once that time has passed.
-
----
-
-## Triggering a sync manually
-
-Go to your GitHub repo → **Actions** tab → **Notion Sync** → **Run workflow**. This runs the sync immediately rather than waiting for the next 30-minute check.
-
----
-
-## Keeping content in Notion without publishing it
-
-Wrap anything in a **toggle** and it will be ignored during sync — the toggle and everything inside it is silently skipped.
-
-Use this for:
-- Section headings you want to keep for future use but aren't using right now
-- Draft ideas that aren't ready
-- Private notes to yourself
-- Alternative versions of content
-
-This works on any page type (blog posts, About, Now page, etc.).
-
----
-
-## How the automation works (the plumbing)
-
-When you change a page's status in Notion, a webhook fires → Notion sends it to **Make.com** → Make.com triggers a **GitHub Action** → the Action runs `scripts/notion-sync.js`, which pulls your content and converts it to Markdown files in the repo → GitHub Pages rebuilds the site automatically.
-
-The sync also runs on a 30-minute schedule as a backup (useful for scheduled posts).
-
----
-
-## Make.com and the personal access token (PAT)
-
-Make.com needs a GitHub Personal Access Token to trigger the GitHub Action. **This token expires periodically.** If posts stop publishing instantly but still work on the 30-minute schedule, the PAT has probably expired.
-
-To fix it:
-1. Go to GitHub → Settings → Developer Settings → Personal access tokens → Generate a new token
-2. Update the token in Make.com (in the GitHub connection settings for the scenario)
-
----
-
-## Key files and where things live
-
-| File/folder | What it does |
+| Command | What it does |
 |---|---|
-| `scripts/notion-sync.js` | The script that pulls from Notion and writes Markdown files |
-| `.github/workflows/notion-sync.yml` | The GitHub Action that runs the script |
-| `_posts/` | Blog post files (auto-generated, don't edit manually) |
-| `_books/` | Bookshelf entries (auto-generated) |
-| `about.md` | About page (auto-generated) |
-| `_config.yml` | Site-wide settings (title, description, etc.) |
-| `_sass/` | Styling |
-| `WISHLIST.md` | Future ideas |
-| `CHANGELOG.md` | What's changed and when |
+| `npm start` | Build the site and preview it at localhost:8080 |
+| `npm run build` | Just rebuild `site/` from `content/` |
+| `npm run sync` | Just pull the latest from Notion (needs the API key set locally) |
+| `npm install` | Install the four packages this needs. Run once, or after an update |
 
 ---
 
-## If something seems broken
+## Changing how the site looks
 
-- **Posts not publishing?** Check the Actions tab on GitHub — it shows logs for every sync run. Look for red ✗ marks.
-- **Instant publish not working but scheduled works?** The Make.com PAT has probably expired (see above).
-- **A post published with wrong content?** Check that the Notion page's Status was `Ready to publish` (not a draft) at sync time.
+Everything visual is in **`style.css`**. It's organised in numbered sections with
+comments. The most useful bit is right at the top:
+
+```css
+--accent-tint: #F2DCF0;   /* pale background for quotes and call-outs */
+--accent:      #B509AC;   /* links and buttons */
+--accent-dark: #8A0784;   /* what they turn when you hover */
+```
+
+Change those three lines and the entire site changes colour. Dark mode has its own
+set further down the file (cyan). `DESIGN.md` §2 lists six quieter alternatives that
+are known to work — petrol, mauve, green, blue, cool grey, cool greyish pink — with
+the contrast numbers for each.
+
+---
+
+## When something goes wrong
+
+**Nothing published after 30 minutes.** Go to the repo's **Actions** tab and look at
+the most recent **Publish** run. A red X means it failed — click in to see why.
+The usual cause is the Notion API key having expired.
+
+**The site is live but looks unstyled.** The stylesheet didn't get copied. Run
+`npm run build` locally and check `site/style.css` exists.
+
+**A post published with the wrong web address.** The address comes from the title.
+If you rename a post in Notion and republish it, the old address stops working and a
+new one appears — `sync.js` cleans up the old file automatically, but anyone who
+linked to the old address will hit a 404.
+
+**Everything is broken and you want to start over.** Nothing in `site/` matters —
+delete the whole folder and run `npm run build`. Your writing lives in `content/`
+and in Notion, so it can't be lost this way.
+
+---
+
+## The two secrets
+
+Stored in GitHub under **Settings → Secrets and variables → Actions**:
+
+- `NOTION_API_KEY` — the Notion integration token
+- `NOTION_DATABASE_ID` — `30a6227653ba80a58e08c6d6d4184a0e`
+
+The Notion token expires periodically. When it does, publishing silently stops —
+regenerate it at notion.so/my-integrations and update the secret.
