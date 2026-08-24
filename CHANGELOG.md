@@ -4,6 +4,15 @@ All notable changes to the jillmetcalfe.github.io site, described in plain langu
 
 ---
 
+## 2026-08-24
+- Fixed the site address in `_config.yml` — it said `jillmetcalfe.github.io` but the
+  site actually lives at `jillmetcalfe.com`. This mattered because the RSS feed and
+  the Impressum link in the footer were built from that address, so both were
+  pointing subscribers and search engines at the wrong domain
+- Moved the project into `~/Developer/Claude Code/Jill/` as part of tidying all
+  Claude Code projects into one place. A stale duplicate copy of this repo was also
+  removed from the home folder, so there is now exactly one working copy
+
 ## 2026-02-18 (continued)
 - Added README.md — plain-language guide covering how publishing works, page types, scheduling, toggles, Make.com PAT renewal, and troubleshooting
 - Toggle blocks in Notion are now excluded from published content — use them to store drafts, unused headings, or private notes
