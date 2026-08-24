@@ -81,7 +81,8 @@ If it complains about missing packages, run `npm install` once first.
 | `templates/base.html` | The wrapper every page sits inside — header, footer, fonts |
 | `site/` | The built website. Thrown away and rebuilt every time. Never edit by hand |
 | `CNAME` | Tells GitHub the site lives at jillmetcalfe.com |
-| `.github/workflows/publish.yml` | The robot: sync, build, publish |
+| `check-links.js` | Catches links pointing at pages that don't exist. Runs on every publish |
+| `.github/workflows/publish.yml` | The robot: sync, build, check, publish |
 
 ---
 
@@ -92,6 +93,7 @@ If it complains about missing packages, run `npm install` once first.
 | `npm start` | Build the site and preview it at localhost:8080 |
 | `npm run build` | Just rebuild `site/` from `content/` |
 | `npm run sync` | Just pull the latest from Notion (needs the API key set locally) |
+| `npm run check` | Rebuild, then confirm no link on the site points at a missing page |
 | `npm install` | Install the four packages this needs. Run once, or after an update |
 
 ---

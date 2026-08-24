@@ -2,10 +2,11 @@
   "name": "jillmetcalfe-website",
   "version": "2.0.0",
   "private": true,
-  "description": "jillmetcalfe.com — markdown from Notion, built into static HTML by one script.",
+  "description": "jillmetcalfe.com \u2014 markdown from Notion, built into static HTML by one script.",
   "scripts": {
     "sync": "node sync.js",
     "build": "node build.js",
+    "check": "node build.js && node check-links.js",
     "start": "node build.js && node serve.js",
     "publish": "node sync.js && node build.js"
   },
