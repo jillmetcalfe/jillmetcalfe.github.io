@@ -42,6 +42,9 @@ If a change contradicts DESIGN.md, update DESIGN.md first and say why.
 - `Page` select routes content: About, Blog, Bookshelf, Bookshelf intro, Now, Projects, Home
   - `Bookshelf` is an individual book; `Bookshelf intro` is the wording above the book list.
     There should only ever be one `Bookshelf intro` entry
+  - **Adding a new `Page` value: deploy the `sync.js` change before marking anything in
+    Notion ready.** A value `sync.js` doesn't recognise falls through to the blog-post
+    branch and gets published as a post.
 - `Status` gates publishing, and two values mean "publish this":
   - `Ready to publish` — goes out on the next run, whatever `Date` says
   - `Scheduled` — held back until `Date` has passed, then goes out

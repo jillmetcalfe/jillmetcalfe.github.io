@@ -156,11 +156,12 @@ async function syncEntry(page, fallbackDate) {
     if (tags.length) fields.tags = tags;
   }
 
-  // If this entry was published before under a different title, its old file
-  // is still sitting there. Find it by the Notion id and remove it.
-  removeStaleCopies(dir, notionId, `${filename}.md`);
-
   const file = path.join(dir, `${filename}.md`);
+
+  // If this entry was published before under a different title — or as a
+  // different kind of page — its old file is still sitting there. Remove it.
+  removeStaleCopies(file, notionId);
+
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(file, `---\n${toYaml(fields)}---\n\n${body.trim()}\n`, "utf-8");
   console.log(`  wrote ${path.relative(__dirname, file)}`);
@@ -192,13 +193,20 @@ function readNotionId(file) {
   }
 }
 
-function removeStaleCopies(dir, notionId, keepFilename) {
-  if (!fs.existsSync(dir)) return;
-  for (const file of fs.readdirSync(dir)) {
-    if (!file.endsWith(".md") || file === keepFilename) continue;
-    if (readNotionId(path.join(dir, file)) === notionId) {
-      fs.unlinkSync(path.join(dir, file));
-      console.log(`  removed old copy ${file}`);
+/**
+ * Remove any other file that came from this same Notion page.
+ *
+ * Looks across every content folder, not just the one we're about to write to.
+ * A page that changes its Page property — a blog post that becomes a book, say —
+ * lands in a different folder, and its old file would otherwise sit there
+ * forever, showing up on the site twice.
+ */
+function removeStaleCopies(keepPath, notionId) {
+  for (const file of allContentFiles()) {
+    if (file === keepPath) continue;
+    if (readNotionId(file) === notionId) {
+      fs.unlinkSync(file);
+      console.log(`  removed old copy ${path.relative(__dirname, file)}`);
     }
   }
 }
