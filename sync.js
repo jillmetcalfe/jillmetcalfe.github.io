@@ -50,22 +50,18 @@ async function main() {
   //
   // A "Scheduled" entry with no Date at all has nothing to wait for, so it goes
   // out on the next run.
+  //
+  // The two Scheduled branches are spelled out separately rather than as one
+  // branch with an inner or/. Notion's API only allows filters to nest two deep,
+  // and or -> and -> or is three.
+  const scheduled = { property: "Status", status: { equals: "Scheduled" } };
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
       or: [
         { property: "Status", status: { equals: "Ready to publish" } },
-        {
-          and: [
-            { property: "Status", status: { equals: "Scheduled" } },
-            {
-              or: [
-                { property: "Date", date: { on_or_before: now } },
-                { property: "Date", date: { is_empty: true } },
-              ],
-            },
-          ],
-        },
+        { and: [scheduled, { property: "Date", date: { on_or_before: now } }] },
+        { and: [scheduled, { property: "Date", date: { is_empty: true } }] },
       ],
     },
   });
