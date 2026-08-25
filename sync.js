@@ -12,12 +12,13 @@
  * Needs two environment variables: NOTION_API_KEY and NOTION_DATABASE_ID.
  *
  * The Page property in Notion decides where each entry lands:
- *   Blog      -> content/posts/<slug>.md      shows at /blog/<slug>/
- *   Bookshelf -> content/books/<slug>.md      shows at /bookshelf/<slug>/
- *   About     -> content/pages/about.md       shows at /about/
- *   Now       -> content/pages/now.md         shows at /now/
- *   Projects  -> content/pages/projects.md    shows at /projects/
- *   Home      -> content/pages/home.md        the intro on the front page
+ *   Blog            -> content/posts/<slug>.md     shows at /blog/<slug>/
+ *   Bookshelf       -> content/books/<slug>.md     shows at /bookshelf/<slug>/
+ *   Bookshelf intro -> content/pages/bookshelf.md  the words above the book list
+ *   About           -> content/pages/about.md      shows at /about/
+ *   Now             -> content/pages/now.md        shows at /now/
+ *   Projects        -> content/pages/projects.md   shows at /projects/
+ *   Home            -> content/pages/home.md       the intro on the front page
  */
 
 const { Client } = require("@notionhq/client");
@@ -33,7 +34,15 @@ const databaseId = process.env.NOTION_DATABASE_ID;
 const CONTENT = path.join(__dirname, "content");
 
 // Which Page values are one-of-a-kind pages rather than lists of entries.
-const SINGLE_PAGES = { About: "about", Now: "now", Projects: "projects", Home: "home" };
+const SINGLE_PAGES = {
+  About: "about",
+  Now: "now",
+  Projects: "projects",
+  Home: "home",
+  // The words at the top of /bookshelf/, above the list of books. Separate from
+  // "Bookshelf", which is what an individual book uses.
+  "Bookshelf intro": "bookshelf",
+};
 
 async function main() {
   if (!process.env.NOTION_API_KEY || !databaseId) {

@@ -39,7 +39,9 @@ If a change contradicts DESIGN.md, update DESIGN.md first and say why.
 ## Notion database
 - Data source: `30a62276-53ba-80f8-843d-000bf634e88f`
 - Database ID (for the API): `30a6227653ba80a58e08c6d6d4184a0e`
-- `Page` select routes content: About, Blog, Bookshelf, Now, Projects, Home
+- `Page` select routes content: About, Blog, Bookshelf, Bookshelf intro, Now, Projects, Home
+  - `Bookshelf` is an individual book; `Bookshelf intro` is the wording above the book list.
+    There should only ever be one `Bookshelf intro` entry
 - `Status` gates publishing, and two values mean "publish this":
   - `Ready to publish` — goes out on the next run, whatever `Date` says
   - `Scheduled` — held back until `Date` has passed, then goes out

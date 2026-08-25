@@ -21,6 +21,8 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
   Published puts it back on the site.
 - Fixed: renaming a post used to leave the old version behind as a second copy. The
   check that was meant to catch this never matched, so it never ran.
+- The words at the top of the bookshelf page can now be edited in Notion, like everything
+  else. Set **Page** to `Bookshelf intro`.
 - The site went live with its new design. Jekyll is gone.
 
 ## 2026-08-24 (rebuild)
