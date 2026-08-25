@@ -6,9 +6,11 @@ A reference for when you come back after time away.
 
 ## The one-paragraph version
 
-You write in Notion. Every 30 minutes a robot checks Notion for anything marked
-**Ready to publish**, saves it into this folder as plain text, turns that text into
-web pages, and puts them on jillmetcalfe.com. You never have to touch code to publish.
+You write in Notion. When you mark something **Ready to publish**, Notion pokes a
+small robot, which saves your writing into this folder as plain text, turns that text
+into web pages, and puts them on jillmetcalfe.com — about **90 seconds**, start to
+finish. A second robot also checks every 30 minutes, to catch anything scheduled for
+later. You never have to touch code to publish.
 
 ---
 
@@ -17,14 +19,19 @@ web pages, and puts them on jillmetcalfe.com. You never have to touch code to pu
 1. Write it in the Notion database (**jillmetcalfe.com**)
 2. Set **Page** to say where it goes (see the table below)
 3. Set **Status** to `Ready to publish`
-4. Wait up to 30 minutes
+4. Wait about 90 seconds
 
 Notion flips the Status to `Published` by itself once it's done.
 
-**To publish right now instead of waiting:** GitHub repo → **Actions** tab → **Publish** → **Run workflow**.
+**To schedule it for later instead:** set **Status** to `Scheduled` and put a future
+date and time in the **Date** field. It will sit and wait, and go out within half an
+hour of that moment.
 
-**To schedule for later:** set the **Date** field to a future date and time. It will
-sit and wait until that moment passes.
+`Ready to publish` means *now*, whatever the Date says. `Scheduled` is the one that
+waits. The **Date** field is otherwise just the date shown on the post.
+
+**If it hasn't appeared:** GitHub repo → **Actions** tab → **Publish** → **Run
+workflow** forces it. You shouldn't need this, but it does no harm.
 
 ### Where each Page value ends up
 
@@ -32,17 +39,34 @@ sit and wait until that moment passes.
 |---|---|---|
 | Blog | `/blog/your-title/` | Also appears in the blog list and the RSS feed |
 | Bookshelf | `/bookshelf/the-book/` | Grouped on `/bookshelf/` by Book Status |
+| Bookshelf intro | top of `/bookshelf/` | The words above the list of books. Only ever one |
 | About | `/about/` | Replaces the whole page |
 | Now | `/now/` | Replaces the whole page |
 | Projects | `/projects/` | Replaces the whole page |
 | Home | `/` | The intro paragraph on the front page |
 | *(blank)* | treated as Blog | |
 
+### Taking something down
+
+Change its **Status** in Notion to anything other than `Published` — `Draft` or
+`Hold` both work — and it comes off the site on the next run. Deleting the Notion
+page does the same thing.
+
+Put it back to `Published` and it returns. Nothing is lost either way: every version
+is in this folder's history.
+
+Two things are never removed automatically: pages you wrote by hand that never came
+from Notion, and anything published in that same run.
+
 ### Keeping something in Notion without publishing it
 
 Put it inside a **toggle**. Toggles are skipped entirely — the arrow and everything
 under it. Use them for draft sections, private notes, and headings you're not ready
 to use yet. Works on every page type.
+
+**It must be a plain toggle, not a toggle heading.** A heading that folds looks the
+same but is a different kind of block, and it is *not* skipped — everything under it
+would be published.
 
 ---
 
@@ -118,9 +142,18 @@ the contrast numbers for each.
 
 ## When something goes wrong
 
-**Nothing published after 30 minutes.** Go to the repo's **Actions** tab and look at
-the most recent **Publish** run. A red X means it failed — click in to see why.
-The usual cause is the Notion API key having expired.
+**Nothing published after a couple of minutes.** It will still go out within 30
+minutes via the scheduled run, so this is never urgent. If it doesn't, go to the
+repo's **Actions** tab and open the most recent **Publish** run.
+
+Careful: a failed Notion sync shows as a **yellow warning, not a red X** — that's
+deliberate, so a publishing problem can never take the live site down. Open the
+"Pull new content from Notion" step and read it. The usual cause is an expired token.
+
+**It publishes on the half hour but never instantly.** The instant path is the
+`website-publish` Notion worker. Check it with `ntn workers runs list` from
+`~/Developer/Claude Code/Jill/ntn/website-publish`. The usual cause is its GitHub
+token having expired.
 
 **The site is live but looks unstyled.** The stylesheet didn't get copied. Run
 `npm run build` locally and check `site/style.css` exists.
@@ -136,12 +169,38 @@ and in Notion, so it can't be lost this way.
 
 ---
 
-## The two secrets
+## What actually moves your writing
 
-Stored in GitHub under **Settings → Secrets and variables → Actions**:
+Two separate things publish this site, and they do different jobs. **Both are needed.**
+
+| | What it does | When |
+|---|---|---|
+| **The Notion worker** (`website-publish`) | Notion pokes it the moment you set something to `Ready to publish`; it tells GitHub to build now | Instantly |
+| **The scheduled run** in `publish.yml` | Checks Notion for anything now due | Every 30 minutes |
+
+The worker is only a shortcut. The scheduled run is what actually publishes
+`Scheduled` posts, because nothing pokes anything when a future date quietly arrives.
+**Don't delete the schedule on the grounds that the worker made it redundant.**
+
+The worker lives outside this repo, at `~/Developer/Claude Code/Jill/ntn/website-publish`.
+
+---
+
+## The secrets
+
+In **GitHub → Settings → Secrets and variables → Actions**:
 
 - `NOTION_API_KEY` — the Notion integration token
 - `NOTION_DATABASE_ID` — `30a6227653ba80a58e08c6d6d4184a0e`
 
-The Notion token expires periodically. When it does, publishing silently stops —
-regenerate it at notion.so/my-integrations and update the secret.
+In the **Notion worker** (see it with `ntn workers env list`):
+
+- `GITHUB_TOKEN` — lets the worker ask GitHub to build. Needs *Contents: Read and
+  write* on this repo only
+- `PUBLISH_WEBHOOK_SECRET` — must match the `X-Publish-Secret` header on the Notion
+  automation. Stops strangers who find the URL from triggering builds
+
+**All of these expire, and all of them fail quietly.** Publishing slows down or stops
+and nothing shouts about it. If the site stops updating, check the tokens first:
+regenerate the Notion one at notion.so/my-integrations, the GitHub one at
+github.com/settings/personal-access-tokens.
