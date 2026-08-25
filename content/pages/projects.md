@@ -4,9 +4,6 @@ notion_id: "30a6227653ba8046b244c9049b2727e5"
 updated: "2026-08-25"
 ---
 
-# **Projects**
-
-
 I enjoy building tools to solve my own problems. 
 
 
