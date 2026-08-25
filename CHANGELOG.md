@@ -9,6 +9,9 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 - The site now publishes within about 90 seconds of you marking something
   **Ready to publish**, instead of waiting up to half an hour. A small Notion worker
   tells GitHub to get on with it.
+- **Make.com is no longer part of publishing.** It used to be the relay that passed
+  Notion's "publish now" signal to GitHub (see 2026-02-17 below); the Notion worker
+  does that job now. The old Make scenario can be switched off.
 - Added a **Scheduled** status for posts you want to go out later. Set the status to
   Scheduled and give the post a Date, and it will publish itself once that time passes.
 - **Ready to publish** now means "publish this now", full stop — it no longer waits for
