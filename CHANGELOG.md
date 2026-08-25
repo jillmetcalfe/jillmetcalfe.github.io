@@ -4,6 +4,17 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ---
 
+## 2026-08-25
+
+- The site now publishes within about 90 seconds of you marking something
+  **Ready to publish**, instead of waiting up to half an hour. A small Notion worker
+  tells GitHub to get on with it.
+- Added a **Scheduled** status for posts you want to go out later. Set the status to
+  Scheduled and give the post a Date, and it will publish itself once that time passes.
+- **Ready to publish** now means "publish this now", full stop — it no longer waits for
+  a future Date. Use **Scheduled** when you want to wait.
+- The site went live with its new design. Jekyll is gone.
+
 ## 2026-08-24 (rebuild)
 - **The top navigation bar now stays put when you scroll.** It was also made much
   shorter as part of this — a bar that's always on screen is rented space, so the

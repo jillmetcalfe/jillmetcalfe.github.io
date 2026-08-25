@@ -40,7 +40,14 @@ If a change contradicts DESIGN.md, update DESIGN.md first and say why.
 - Data source: `30a62276-53ba-80f8-843d-000bf634e88f`
 - Database ID (for the API): `30a6227653ba80a58e08c6d6d4184a0e`
 - `Page` select routes content: About, Blog, Bookshelf, Now, Projects, Home
-- `Status` gates publishing: only `Ready to publish` is synced, then flipped to `Published`
+- `Status` gates publishing, and two values mean "publish this":
+  - `Ready to publish` — goes out on the next run, whatever `Date` says
+  - `Scheduled` — held back until `Date` has passed, then goes out
+  Both are flipped to `Published` once synced. `Date` is the date shown on the post;
+  it only gates publishing for `Scheduled` entries.
+- The Notion automation fires on `Ready to publish` only. That's deliberate — firing on
+  `Scheduled` would trigger a build with nothing to publish. Scheduled entries are picked
+  up by the half-hourly run in `publish.yml`, which is why that schedule must stay.
 - Toggle blocks are stripped during sync — that's how Jill keeps private notes in a page
 
 ## Conventions

@@ -36,17 +36,34 @@ async function main() {
   const now = new Date().toISOString();
   const today = now.split("T")[0];
 
-  console.log("Looking for entries marked 'Ready to publish'…");
+  console.log("Looking for entries marked 'Ready to publish' or due 'Scheduled'…");
 
+  // Two ways an entry can be due:
+  //
+  //   "Ready to publish"  — go out now, whatever the Date says. The Date is just
+  //                         the date shown on the post.
+  //   "Scheduled"         — wait until the Date has passed, then go out. Picked up
+  //                         by the half-hourly run in publish.yml, not by the
+  //                         Notion automation (which only fires on "Ready to
+  //                         publish", so scheduling something doesn't kick off a
+  //                         build that has nothing to do).
+  //
+  // A "Scheduled" entry with no Date at all has nothing to wait for, so it goes
+  // out on the next run.
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      and: [
+      or: [
         { property: "Status", status: { equals: "Ready to publish" } },
         {
-          or: [
-            { property: "Date", date: { on_or_before: now } },
-            { property: "Date", date: { is_empty: true } },
+          and: [
+            { property: "Status", status: { equals: "Scheduled" } },
+            {
+              or: [
+                { property: "Date", date: { on_or_before: now } },
+                { property: "Date", date: { is_empty: true } },
+              ],
+            },
           ],
         },
       ],
