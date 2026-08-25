@@ -45,6 +45,12 @@ If a change contradicts DESIGN.md, update DESIGN.md first and say why.
   - `Scheduled` — held back until `Date` has passed, then goes out
   Both are flipped to `Published` once synced. `Date` is the date shown on the post;
   it only gates publishing for `Scheduled` entries.
+- **Unpublishing:** an entry is on the site if and only if its Status is `Published`.
+  Move it to `Draft` or `Hold` — or delete the Notion page — and `sync.js` removes its
+  markdown file on the next run. Two things are never removed: files with no
+  `notion_id` (hand-written, predate the sync), and anything published in that same
+  run. If Notion reports nothing published at all, the sync assumes a bad query and
+  deletes nothing.
 - The Notion automation fires on `Ready to publish` only. That's deliberate — firing on
   `Scheduled` would trigger a build with nothing to publish. Scheduled entries are picked
   up by the half-hourly run in `publish.yml`, which is why that schedule must stay.

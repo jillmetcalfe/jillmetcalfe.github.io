@@ -13,6 +13,11 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
   Scheduled and give the post a Date, and it will publish itself once that time passes.
 - **Ready to publish** now means "publish this now", full stop — it no longer waits for
   a future Date. Use **Scheduled** when you want to wait.
+- **Taking something down now works.** Move a post back to Draft or Hold in Notion, or
+  delete the Notion page, and it comes off the site on the next sync. Putting it back to
+  Published puts it back on the site.
+- Fixed: renaming a post used to leave the old version behind as a second copy. The
+  check that was meant to catch this never matched, so it never ran.
 - The site went live with its new design. Jekyll is gone.
 
 ## 2026-08-24 (rebuild)
