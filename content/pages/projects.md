@@ -1,43 +1,17 @@
 ---
 title: "Projects"
-updated: "2026-08-24"
+notion_id: "30a6227653ba8046b244c9049b2727e5"
+updated: "2026-08-25"
 ---
 
-I enjoy building tools and solutions that solve real problems. Here are some of my recent projects:
+# **Projects**
 
-## Featured Projects
 
-### QR LinkedIn Generator
-A simple tool for creating QR codes that link directly to LinkedIn profiles, making networking events and professional interactions more seamless.
+I enjoy building tools to solve my own problems. 
 
-**Technologies:** HTML, CSS, JavaScript  
-**GitHub:** [View Project](https://github.com/jillmetcalfe/qr-linkedin)
 
-### Countdown Timer
-A clean, customizable countdown timer application perfect for events, deadlines, and time management.
+Some recent examples include:
 
-**Technologies:** JavaScript, HTML, CSS  
-**GitHub:** [View Project](https://github.com/jillmetcalfe/countdown-timer)
-
-### Luma Event Data Analysis
-Tools and scripts for analyzing event data, helping organizers understand attendance patterns and optimize their events.
-
-**Technologies:** Python, Data Analysis  
-**GitHub:** [View Project](https://github.com/jillmetcalfe/Luma-event-data)
+- A QR code “app” that allows me to display my LinkedIn profile QR code on my phone screen so that people can scan it. I didn’t set out to build a technical solution - I naively thought there would be an obvious and simple way to have a QR code just sit on my iphone screen. But I couldn’t find one. So, it works, but the QR code I printed out and taped to my phone case actually works better. I know that because someone I met at a conference once was actually able to scan that one.
 
 ---
-
-## Development Approach
-
-I focus on creating **practical, user-friendly solutions** that address real-world needs. My projects emphasize:
-
-- **Clean, maintainable code**
-- **Responsive design**
-- **Performance optimization**
-- **User experience**
-
-Each project is an opportunity to learn new technologies and improve existing skills while building something useful.
-
----
-
-*More projects coming soon! Follow my progress on [LinkedIn](https://linkedin.com/in/jillmetcalfe).*
