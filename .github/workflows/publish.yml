@@ -1,9 +1,17 @@
 name: Publish
 
-# Three ways this runs:
+# Four ways this runs:
 #   1. Every 30 minutes, to pick up anything you marked "Ready to publish" in Notion
 #   2. Whenever you push a change to the code or the styling
 #   3. Manually, from the Actions tab, when you don't want to wait
+#   4. Instantly, when Notion pings the "website-publish" worker (repository_dispatch)
+#
+# DO NOT DELETE THE 30-MINUTE SCHEDULE, even though (4) makes publishing feel instant.
+# They do different jobs. Scheduled posts — pages marked "Ready to publish" with a
+# future Date — are held back by the date filter in sync.js. The Notion automation
+# fires once, at the moment the status changes, when the post is still correctly held
+# back. Nothing fires again. Only this schedule comes back later and publishes it when
+# its date arrives. Remove the schedule and scheduled posts never go out.
 #
 # Pushes to any branch will build the site, so you can check a change is sound.
 # Only main ever talks to Notion or puts anything live — see the guards below.
