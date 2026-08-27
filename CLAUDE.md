@@ -53,14 +53,17 @@ If a change contradicts DESIGN.md, update DESIGN.md first and say why.
 - **Unpublishing:** `Hold` is the only status that takes a page down. Move an entry to
   `Hold` — or delete the Notion page — and `sync.js` removes its markdown file on the
   next run.
-  - **`Draft` does not unpublish.** Draft means "I'm working on this", which applies to
-    edits to an already-live page as much as to a new one, so a published page moved to
-    `Draft` stays on the site with its last-synced content until it's marked
-    `Ready to publish` again. Don't "fix" this by making Draft remove the file.
-  - Three things are never removed: files with no `notion_id` (hand-written, predate
-    the sync), anything published in that same run, and anything in `Draft`. If Notion
-    reports nothing published or in draft at all, the sync assumes a bad query and
-    deletes nothing.
+  - **No other status unpublishes.** `removeUnpublished` asks "is this entry on `Hold`,
+    or gone from Notion?" — not "is it on an approved list". So any status Jill invents
+    is safe by default, and adding one needs no code change. Don't "fix" this by
+    switching back to a keep-list.
+  - `Draft` means "not up yet"; `Editing` means "up, and I'm reworking it". Both leave
+    a live page alone — the site shows the last-synced version until the entry is
+    marked `Ready to publish` again. `Editing` exists so Jill can still tell at a glance
+    which entries are live while she works on them.
+  - Two things are never removed: files with no `notion_id` (hand-written, predate the
+    sync) and anything published in that same run. If Notion returns no entries at all,
+    the sync assumes a bad query and deletes nothing.
 - The Notion automation fires on `Ready to publish` only. That's deliberate — firing on
   `Scheduled` would trigger a build with nothing to publish. Scheduled entries are picked
   up by the half-hourly run in `publish.yml`, which is why that schedule must stay.

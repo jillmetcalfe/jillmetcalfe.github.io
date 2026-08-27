@@ -6,6 +6,16 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ## 2026-08-27
 
+- **New `Editing` status: "this page is live, and I'm rewriting it."** Use it on a page
+  that's already on the site. It leaves the page up, showing the last version that
+  synced, and keeps the at-a-glance answer to "what's actually published?" — that's
+  `Published` and `Editing`. `Draft` goes back to meaning "something new I haven't put
+  up yet".
+- **`Hold` really is the only status that unpublishes now.** The robot used to work
+  from a list of statuses it recognised and quietly took down anything else — a live
+  page moved to `Not started`, say. It now asks one question instead: is this on
+  `Hold`, or gone from Notion? Everything else is left alone. You can invent new
+  statuses in Notion without anything breaking.
 - **Moving a page to `Draft` no longer takes it off the site.** Draft now means "I'm
   working on this" — whether that's something new or edits to a page that's already
   published. A published page you move to Draft stays up, showing the last version

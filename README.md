@@ -38,14 +38,23 @@ workflow** forces it. You shouldn't need this, but it does no harm.
 | Status | What happens |
 |---|---|
 | `Not started` | Nothing. The robot ignores it |
-| `Draft` | Nothing — and **if it's already on the site, it stays there.** Draft is your workbench, whether you're starting something new or reworking something published |
+| `Draft` | Nothing. Something new you haven't put up yet |
+| `Editing` | Nothing — **it stays on the site** while you rework it. This is the one to use on a page that's already live |
 | `Scheduled` | Goes out once the **Date** has passed |
 | `Ready to publish` | Goes out on the next run, whatever the Date says |
-| `Published` | It's on the site. The robot sets this for you — you don't need to |
+| `Published` | It's on the site and up to date. The robot sets this for you — you don't need to |
 | `Hold` | Takes it off the site. **This is the only status that unpublishes** |
 
 Only three of these make anything happen: `Ready to publish` and `Scheduled` put a
 page up, `Hold` takes one down. The rest are just labels for your own use.
+
+**Which ones are live right now?** `Published` and `Editing`. That's the whole answer —
+`Editing` exists so that reworking a page doesn't hide the fact that it's up.
+
+The usual round trip for a page that's already on the site:
+
+`Published` → `Editing` (while you rewrite it in Notion) → `Ready to publish` →
+the robot puts it back to `Published`.
 
 ### Where each Page value ends up
 
@@ -68,14 +77,17 @@ Notion page does the same thing.
 Put it back to `Ready to publish` and it returns. Nothing is lost either way: every
 version is in this folder's history.
 
-**`Draft` does not take a page down.** Draft means "I'm working on this", and that's
-just as true of edits to a page that's already live as it is of something new. So a
-published page you move to `Draft` stays on the site, showing the last version that
-was synced, while you rewrite it in Notion. When you're happy, mark it
-`Ready to publish` and the site catches up. `Hold` is the one that unpublishes.
+**No other status takes a page down.** Not `Draft`, not `Editing`, not `Not started`.
+A page that's on the site stays on the site, showing the last version that was synced,
+until you either set it to `Hold` or delete it in Notion. So you can rework a live page
+at your leisure: set it to `Editing`, rewrite it, and when you're happy mark it
+`Ready to publish` and the site catches up.
 
-Three things are never removed automatically: pages you wrote by hand that never came
-from Notion, anything published in that same run, and anything in `Draft`.
+That also means you can add your own statuses in Notion whenever you want a new label.
+The robot only ever looks for `Hold`, so anything else you invent is safe.
+
+Two things are never removed automatically: pages you wrote by hand that never came
+from Notion, and anything published in that same run.
 
 ### Keeping something in Notion without publishing it
 
