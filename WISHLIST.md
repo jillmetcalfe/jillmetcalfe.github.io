@@ -18,5 +18,13 @@ Future ideas and improvements for the site. Items are marked ✅ with a date whe
   DESIGN.md lists, so it separates from the ink by going lighter instead of more
   saturated. The rule to keep: separate from the ink by hue or lightness, not neither.
   All six alternatives with hexes are in a comment at the top of `style.css`
+- [ ] **Feed the bookshelf from the Notion Library.** Books are currently typed twice:
+  once in the Library, and again as a `Bookshelf` entry in the jillmetcalfe.com
+  database with Author / Book Status / Stars / Started / Finished filled in by hand.
+  The bookshelf should read from the Library instead. Open questions before starting:
+  which Library database is the source of truth (there's a "Library Updater" page that
+  maintains one), how a book gets marked "this one goes on the site" — a checkbox in
+  the Library is probably enough — and what happens to the four Bookshelf entries that
+  already exist, since their notes and star ratings shouldn't be lost in the move.
 - ✅ 2026-08-24 Now page via Notion — syncs from Notion like About. (Wayback Machine auto-archiving still to do: `- [ ] Archive the previous Now page to the Wayback Machine before overwriting`)
 - ✅ 2026-08-24 Update Ruby for local site testing — no longer needed, Ruby and Jekyll are gone. Preview with `npm start`
