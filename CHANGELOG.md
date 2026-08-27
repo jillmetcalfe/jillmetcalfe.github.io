@@ -11,17 +11,19 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
   synced, and keeps the at-a-glance answer to "what's actually published?" — that's
   `Published` and `Editing`. `Draft` goes back to meaning "something new I haven't put
   up yet".
-- **`Hold` really is the only status that unpublishes now.** The robot used to work
-  from a list of statuses it recognised and quietly took down anything else — a live
-  page moved to `Not started`, say. It now asks one question instead: is this on
-  `Hold`, or gone from Notion? Everything else is left alone. You can invent new
-  statuses in Notion without anything breaking.
+- **`Hold` is now called `Unpublished`,** because that is what it does. Nothing was
+  using it, so nothing changed hands.
+- **`Unpublished` really is the only status that takes a page down.** (Deleting the
+  Notion page still works too.) The robot used to work from a list of statuses it
+  recognised and quietly took down anything else — a live page moved to `Not started`,
+  say. It now asks one question instead: is this `Unpublished`, or gone from Notion?
+  Everything else is left alone, so you can invent new statuses in Notion without
+  anything breaking.
 - **Moving a page to `Draft` no longer takes it off the site.** Draft now means "I'm
   working on this" — whether that's something new or edits to a page that's already
   published. A published page you move to Draft stays up, showing the last version
   that synced, until you mark it `Ready to publish` again.
-- **`Hold` is now the only status that unpublishes something.** (Deleting the Notion
-  page still works too.) There's a table of what every status does in the README.
+- There's a table of what every status does in the README.
 
 ## 2026-08-25
 

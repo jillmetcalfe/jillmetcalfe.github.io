@@ -40,13 +40,13 @@ workflow** forces it. You shouldn't need this, but it does no harm.
 | `Not started` | Nothing. The robot ignores it |
 | `Draft` | Nothing. Something new you haven't put up yet |
 | `Editing` | Nothing — **it stays on the site** while you rework it. This is the one to use on a page that's already live |
-| `Scheduled` | Goes out once the **Date** has passed |
 | `Ready to publish` | Goes out on the next run, whatever the Date says |
+| `Scheduled` | Goes out once the **Date** has passed |
 | `Published` | It's on the site and up to date. The robot sets this for you — you don't need to |
-| `Hold` | Takes it off the site. **This is the only status that unpublishes** |
+| `Unpublished` | Takes it off the site. **This is the only status that does** |
 
 Only three of these make anything happen: `Ready to publish` and `Scheduled` put a
-page up, `Hold` takes one down. The rest are just labels for your own use.
+page up, `Unpublished` takes one down. The rest are just labels for your own use.
 
 **Which ones are live right now?** `Published` and `Editing`. That's the whole answer —
 `Editing` exists so that reworking a page doesn't hide the fact that it's up.
@@ -71,7 +71,7 @@ the robot puts it back to `Published`.
 
 ### Taking something down
 
-Change its **Status** to `Hold`. It comes off the site on the next run. Deleting the
+Change its **Status** to `Unpublished`. It comes off the site on the next run. Deleting the
 Notion page does the same thing.
 
 Put it back to `Ready to publish` and it returns. Nothing is lost either way: every
@@ -79,12 +79,12 @@ version is in this folder's history.
 
 **No other status takes a page down.** Not `Draft`, not `Editing`, not `Not started`.
 A page that's on the site stays on the site, showing the last version that was synced,
-until you either set it to `Hold` or delete it in Notion. So you can rework a live page
-at your leisure: set it to `Editing`, rewrite it, and when you're happy mark it
+until you either set it to `Unpublished` or delete it in Notion. So you can rework a live
+page at your leisure: set it to `Editing`, rewrite it, and when you're happy mark it
 `Ready to publish` and the site catches up.
 
 That also means you can add your own statuses in Notion whenever you want a new label.
-The robot only ever looks for `Hold`, so anything else you invent is safe.
+The robot only ever looks for `Unpublished`, so anything else you invent is safe.
 
 Two things are never removed automatically: pages you wrote by hand that never came
 from Notion, and anything published in that same run.

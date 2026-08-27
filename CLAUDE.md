@@ -50,11 +50,12 @@ If a change contradicts DESIGN.md, update DESIGN.md first and say why.
   - `Scheduled` — held back until `Date` has passed, then goes out
   Both are flipped to `Published` once synced. `Date` is the date shown on the post;
   it only gates publishing for `Scheduled` entries.
-- **Unpublishing:** `Hold` is the only status that takes a page down. Move an entry to
-  `Hold` — or delete the Notion page — and `sync.js` removes its markdown file on the
-  next run.
-  - **No other status unpublishes.** `removeUnpublished` asks "is this entry on `Hold`,
-    or gone from Notion?" — not "is it on an approved list". So any status Jill invents
+- **Unpublishing:** `Unpublished` is the only status that takes a page down. Move an
+  entry to `Unpublished` — or delete the Notion page — and `sync.js` removes its
+  markdown file on the next run. (This status was called `Hold` until 2026-08-27.)
+  - **No other status unpublishes.** `removeUnpublished` asks "is this entry
+    `Unpublished`, or gone from Notion?" — not "is it on an approved list". So any
+    status Jill invents
     is safe by default, and adding one needs no code change. Don't "fix" this by
     switching back to a keep-list.
   - `Draft` means "not up yet"; `Editing` means "up, and I'm reworking it". Both leave

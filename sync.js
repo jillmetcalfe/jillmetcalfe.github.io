@@ -4,10 +4,10 @@
  * Two jobs, in order:
  *   1. Anything marked "Ready to publish", or "Scheduled" and now due, is
  *      written into content/ as markdown and flipped to "Published" in Notion.
- *   2. Anything set to "Hold", or deleted from Notion altogether, is removed
- *      from content/. Nothing else takes a page down. Statuses like "Draft" or
- *      "Editing" mean "I'm working on this", which is just as true of edits to
- *      a page that's already live as it is of something brand new.
+ *   2. Anything set to "Unpublished", or deleted from Notion altogether, is
+ *      removed from content/. Nothing else takes a page down. Statuses like
+ *      "Draft" or "Editing" mean "I'm working on this", which is just as true
+ *      of edits to a page that's already live as it is of something brand new.
  *
  * Run it with: npm run sync
  * Needs two environment variables: NOTION_API_KEY and NOTION_DATABASE_ID.
@@ -228,7 +228,7 @@ function allContentFiles() {
 /**
  * Take down anything that has been pulled from the site.
  *
- * Exactly two things unpublish a page: setting its Status to "Hold", and
+ * Exactly two things unpublish a page: setting its Status to "Unpublished", and
  * deleting the Notion page outright — a deleted page stops coming back from
  * Notion at all, so nothing here can see it any more.
  *
@@ -238,7 +238,8 @@ function allContentFiles() {
  * new one. The site keeps showing the last version that was synced until the
  * entry is marked Ready to publish again.
  *
- * Because this asks "is it on Hold?" rather than "is it on the approved list?",
+ * Because this asks "is it Unpublished?" rather than "is it on the approved
+ * list?",
  * you can add a new Status in Notion whenever you want a new label without
  * touching this file. Anything it doesn't recognise is left alone.
  *
@@ -249,7 +250,7 @@ function allContentFiles() {
 async function removeUnpublished(justSynced) {
   const justSyncedIds = new Set(justSynced);
   const known = new Set(); // every entry Notion still knows about
-  const held = new Set(); // the ones sitting on Hold
+  const pulled = new Set(); // the ones set to "Unpublished"
 
   let cursor;
   do {
@@ -260,7 +261,7 @@ async function removeUnpublished(justSynced) {
     for (const page of res.results) {
       const id = page.id.replace(/-/g, "");
       known.add(id);
-      if (getStatus(page) === "Hold") held.add(id);
+      if (getStatus(page) === "Unpublished") pulled.add(id);
     }
     cursor = res.has_more ? res.next_cursor : undefined;
   } while (cursor);
@@ -278,7 +279,7 @@ async function removeUnpublished(justSynced) {
     const id = readNotionId(file);
     if (!id) continue; // hand-written, never ours to delete
     if (justSyncedIds.has(id)) continue; // published moments ago
-    if (known.has(id) && !held.has(id)) continue; // still in Notion, not on Hold
+    if (known.has(id) && !pulled.has(id)) continue; // in Notion, not pulled
     fs.unlinkSync(file);
     console.log(`Unpublished: removed ${path.relative(__dirname, file)}`);
     removed++;
