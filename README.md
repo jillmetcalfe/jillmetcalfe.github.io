@@ -33,6 +33,20 @@ waits. The **Date** field is otherwise just the date shown on the post.
 **If it hasn't appeared:** GitHub repo → **Actions** tab → **Publish** → **Run
 workflow** forces it. You shouldn't need this, but it does no harm.
 
+### What each Status means
+
+| Status | What happens |
+|---|---|
+| `Not started` | Nothing. The robot ignores it |
+| `Draft` | Nothing — and **if it's already on the site, it stays there.** Draft is your workbench, whether you're starting something new or reworking something published |
+| `Scheduled` | Goes out once the **Date** has passed |
+| `Ready to publish` | Goes out on the next run, whatever the Date says |
+| `Published` | It's on the site. The robot sets this for you — you don't need to |
+| `Hold` | Takes it off the site. **This is the only status that unpublishes** |
+
+Only three of these make anything happen: `Ready to publish` and `Scheduled` put a
+page up, `Hold` takes one down. The rest are just labels for your own use.
+
 ### Where each Page value ends up
 
 | Page | Lands at | Notes |
@@ -48,15 +62,20 @@ workflow** forces it. You shouldn't need this, but it does no harm.
 
 ### Taking something down
 
-Change its **Status** in Notion to anything other than `Published` — `Draft` or
-`Hold` both work — and it comes off the site on the next run. Deleting the Notion
-page does the same thing.
+Change its **Status** to `Hold`. It comes off the site on the next run. Deleting the
+Notion page does the same thing.
 
-Put it back to `Published` and it returns. Nothing is lost either way: every version
-is in this folder's history.
+Put it back to `Ready to publish` and it returns. Nothing is lost either way: every
+version is in this folder's history.
 
-Two things are never removed automatically: pages you wrote by hand that never came
-from Notion, and anything published in that same run.
+**`Draft` does not take a page down.** Draft means "I'm working on this", and that's
+just as true of edits to a page that's already live as it is of something new. So a
+published page you move to `Draft` stays on the site, showing the last version that
+was synced, while you rewrite it in Notion. When you're happy, mark it
+`Ready to publish` and the site catches up. `Hold` is the one that unpublishes.
+
+Three things are never removed automatically: pages you wrote by hand that never came
+from Notion, anything published in that same run, and anything in `Draft`.
 
 ### Keeping something in Notion without publishing it
 

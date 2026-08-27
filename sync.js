@@ -4,9 +4,10 @@
  * Two jobs, in order:
  *   1. Anything marked "Ready to publish", or "Scheduled" and now due, is
  *      written into content/ as markdown and flipped to "Published" in Notion.
- *   2. Anything no longer "Published" in Notion is removed from content/.
- *      That covers deleting the page outright and simply moving it back to
- *      Draft or Hold to take it off the site.
+ *   2. Anything set to "Hold", or deleted from Notion altogether, is removed
+ *      from content/. "Draft" does not take a page down — it means "I'm
+ *      working on this", which is just as true of edits to a page that's
+ *      already live as it is of something brand new.
  *
  * Run it with: npm run sync
  * Needs two environment variables: NOTION_API_KEY and NOTION_DATABASE_ID.
@@ -225,15 +226,21 @@ function allContentFiles() {
 }
 
 /**
- * Take down anything that is no longer published in Notion.
+ * Take down anything that has been pulled from the site.
  *
- * A page is on the site if, and only if, its Status in Notion is "Published".
- * So this covers both deleting a page outright (a deleted page stops coming back
- * from Notion at all) and simply moving it back to Draft or Hold to unpublish it.
+ * There is one way to unpublish: set the Status to "Hold". Deleting the Notion
+ * page does the same thing, because a deleted page stops coming back from
+ * Notion at all, so nothing here can see it any more.
  *
- * Two things are never touched:
+ * "Draft" deliberately leaves a live page alone. Draft means "I'm working on
+ * this" — which happens just as often to a page that's already published as it
+ * does to a new one — so a published page moved to Draft stays up, exactly as
+ * it was last synced, until it's marked Ready to publish again.
+ *
+ * Three things are never touched:
  *   - files with no notion_id — those are hand-written and predate the sync
  *   - anything published in this very run, in case Notion hasn't caught up yet
+ *   - anything sitting in Draft
  */
 async function removeUnpublished(justSynced) {
   const live = new Set(justSynced);
@@ -242,16 +249,21 @@ async function removeUnpublished(justSynced) {
   do {
     const res = await notion.databases.query({
       database_id: databaseId,
-      filter: { property: "Status", status: { equals: "Published" } },
+      filter: {
+        or: [
+          { property: "Status", status: { equals: "Published" } },
+          { property: "Status", status: { equals: "Draft" } },
+        ],
+      },
       start_cursor: cursor,
     });
     for (const page of res.results) live.add(page.id.replace(/-/g, ""));
     cursor = res.has_more ? res.next_cursor : undefined;
   } while (cursor);
 
-  // A site with nothing published at all is almost certainly a failed or
-  // half-finished query rather than the truth. Deleting every post on the
-  // strength of that would be a bad trade, so don't.
+  // A database with nothing published or in draft at all is almost certainly a
+  // failed or half-finished query rather than the truth. Deleting every post on
+  // the strength of that would be a bad trade, so don't.
   if (live.size === 0) {
     console.warn("Notion reports nothing published at all — not removing anything.");
     return;

@@ -4,6 +4,15 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ---
 
+## 2026-08-27
+
+- **Moving a page to `Draft` no longer takes it off the site.** Draft now means "I'm
+  working on this" — whether that's something new or edits to a page that's already
+  published. A published page you move to Draft stays up, showing the last version
+  that synced, until you mark it `Ready to publish` again.
+- **`Hold` is now the only status that unpublishes something.** (Deleting the Notion
+  page still works too.) There's a table of what every status does in the README.
+
 ## 2026-08-25
 
 - The site now publishes within about 90 seconds of you marking something
