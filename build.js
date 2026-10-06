@@ -22,18 +22,19 @@ const SITE = {
   author: "Jill Metcalfe",
 };
 
-// The navigation bar, in order. Pages you haven't written yet are skipped.
-const NAV = [
-  { label: "About", href: "/about/" },
-  { label: "Blog", href: "/blog/" },
-  { label: "Bookshelf", href: "/bookshelf/" },
-  { label: "Now", href: "/now/" },
-  { label: "Projects", href: "/projects/" },
-];
-
 const ROOT = __dirname;
 const CONTENT = path.join(ROOT, "content");
 const OUT = path.join(ROOT, "site");
+
+// The navigation bar, in order. About, Now and Projects only appear once
+// content/pages/ has a file for them, so deleting a page never leaves a dead link.
+const NAV = [
+  { label: "About", href: "/about/", page: "about" },
+  { label: "Blog", href: "/blog/" },
+  { label: "Bookshelf", href: "/bookshelf/" },
+  { label: "Now", href: "/now/", page: "now" },
+  { label: "Projects", href: "/projects/", page: "projects" },
+].filter((item) => !item.page || fs.existsSync(path.join(CONTENT, "pages", `${item.page}.md`)));
 
 marked.setOptions({ gfm: true, breaks: false });
 

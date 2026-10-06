@@ -6,6 +6,12 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ## 2026-10-07
 
+- **Removed the last of the old placeholder pages:** About, the Jekyll blog post, and
+  the Atomic Habits and Pragmatic Programmer book notes. They were copied over from the
+  old Jekyll site and never came from Notion, so deleting them in Notion couldn't take
+  them down.
+- **The menu hides pages that don't exist.** About, Now and Projects only appear in the
+  navigation when there's a page behind them.
 - **Pictures work.** Paste or drag a picture into any Notion page and it appears on
   the site. Notion's own links to pictures stop working after an hour, so the robot
   now downloads each picture when it publishes the page and keeps its own copy in
