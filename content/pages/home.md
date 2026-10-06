@@ -1,25 +1,19 @@
 ---
-title: "Welcome 👋"
-updated: "2026-08-24"
+title: "Home"
+notion_id: "30a6227653ba80cfbef0e5f2aa503a59"
+updated: "2026-10-06"
 ---
 
-I'm **Jill Metcalfe**, a developer passionate about creating practical solutions to real-world problems.
+Everything on this website is 100% written by me, using words that come from my own brain, put together in whatever order I decide, and typed out by my own fingers.
 
-## What I Do
 
-- **Web Development** - Building responsive, user-friendly applications
-- **Data Visualization** - Transforming complex data into clear insights  
-- **Automation Tools** - Creating tools that streamline workflows
-- **Problem Solving** - Approaching challenges with creativity and technical expertise
+I might use AI to help me explore ideas.
 
-## Current Focus
 
-I'm currently working on projects involving web development, data visualization, and automation tools. Always interested in collaborating on interesting challenges!
+I might use AI to do research.
 
-## Get In Touch
 
-- **LinkedIn**: [jillmetcalfe](https://linkedin.com/in/jillmetcalfe)
+But I’m not going to use AI for writing, no matter how tempting it is.
 
----
 
-*This site is a work in progress - check back for new projects and posts! (Updated June 5th - Force rebuild)*
+Writing is important to me, and writing is hard for me. If it wasn’t hard, it wouldn’t be important.
