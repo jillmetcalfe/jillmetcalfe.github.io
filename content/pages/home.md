@@ -4,7 +4,7 @@ notion_id: "30a6227653ba80cfbef0e5f2aa503a59"
 updated: "2026-10-06"
 ---
 
-Everything on this website is 100% written by me, using words that come from my own brain, put together in whatever order I decide, and typed out by my own fingers.
+Everything on this website is 100% written by me, using words that came from my own brain, put together in the best order I could find, and typed out by my own fingers.
 
 
 I might use AI to help me explore ideas.
