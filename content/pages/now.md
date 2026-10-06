@@ -19,7 +19,7 @@ I bought the [jillmetcalfe.com](http://jillmetcalfe.com/) domain in 1999 and sin
 https://cluesbysam.com
 
 
-### Stripping all the AI from this site
+### Stripping all the AI slop from this site
 
 
-Other
+Otherwise what’s the point.
