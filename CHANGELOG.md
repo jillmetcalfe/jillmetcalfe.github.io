@@ -4,6 +4,18 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ---
 
+## 2026-10-07
+
+- **Pictures work.** Paste or drag a picture into any Notion page and it appears on
+  the site. Notion's own links to pictures stop working after an hour, so the robot
+  now downloads each picture when it publishes the page and keeps its own copy in
+  `assets/images/`. A caption you add in Notion becomes the picture's description
+  for screen readers.
+- **Pictures in toggles stay private.** They are never downloaded, just like the
+  text around them.
+- Delete a picture in Notion and republish, and it goes from the site too.
+  Unpublishing a page removes its pictures along with it.
+
 ## 2026-08-27
 
 - **New `Editing` status: "this page is live, and I'm rewriting it."** Use it on a page

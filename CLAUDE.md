@@ -69,6 +69,10 @@ If a change contradicts DESIGN.md, update DESIGN.md first and say why.
   `Scheduled` would trigger a build with nothing to publish. Scheduled entries are picked
   up by the half-hourly run in `publish.yml`, which is why that schedule must stay.
 - Toggle blocks are stripped during sync — that's how Jill keeps private notes in a page
+- Uploaded pictures are downloaded by `sync.js` to `assets/images/<notion_id>/` and committed
+  by `publish.yml` — Notion's file links expire after an hour. They go through a
+  `notion-image:` placeholder so pictures inside toggles are never downloaded. External
+  (web-linked) pictures are left as links
 
 ## Conventions
 - Keep `build.js` readable by a non-programmer: comments explain *why*, plain names, no clever tricks

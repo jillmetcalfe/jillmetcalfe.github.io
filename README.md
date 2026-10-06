@@ -99,6 +99,16 @@ to use yet. Works on every page type.
 same but is a different kind of block, and it is *not* skipped — everything under it
 would be published.
 
+### Pictures
+
+Paste or drag a picture into the Notion page, like you would anywhere else in Notion.
+When the page publishes, the robot downloads the picture and puts its own copy on the
+site — Notion's links to pictures expire after an hour, so they can't be used directly.
+Add a caption in Notion if you like; it becomes the description screen readers read out.
+
+Pictures inside a toggle are private like everything else in a toggle: never downloaded,
+never published.
+
 ---
 
 ## Looking at the site before it goes live

@@ -34,6 +34,26 @@ const databaseId = process.env.NOTION_DATABASE_ID;
 
 const CONTENT = path.join(__dirname, "content");
 
+// Pictures pasted into Notion are downloaded here, one folder per Notion page.
+// build.js copies assets/ into the site, so they show at /assets/images/…
+const IMAGES = path.join(__dirname, "assets", "images");
+
+// Notion's links to uploaded pictures expire after an hour, so they can't go on
+// the site as they are. Instead each picture is first written into the markdown
+// as a placeholder — notion-image:<block id> — and only swapped for a real,
+// downloaded file once the private toggles have been stripped out. That way a
+// picture tucked inside a toggle is never downloaded, so it can't leak onto the
+// site. Pictures linked from elsewhere on the web ("external") don't expire and
+// are left exactly as Notion gives them.
+const notionImageLinks = new Map(); // block id -> Notion's temporary link
+n2m.setCustomTransformer("image", async (block) => {
+  if (block.image.type !== "file") return false; // external: use the default
+  const id = block.id.replace(/-/g, "");
+  notionImageLinks.set(id, block.image.file.url);
+  const caption = block.image.caption.map((t) => t.plain_text).join("");
+  return `![${caption}](notion-image:${id})`;
+});
+
 // Which Page values are one-of-a-kind pages rather than lists of entries.
 const SINGLE_PAGES = {
   About: "about",
@@ -49,6 +69,10 @@ async function main() {
   if (!process.env.NOTION_API_KEY || !databaseId) {
     throw new Error("Set NOTION_API_KEY and NOTION_DATABASE_ID before running this.");
   }
+
+  // publish.yml saves this folder back to the repo after every run, and git
+  // refuses outright if it doesn't exist — so make sure it always does.
+  fs.mkdirSync(IMAGES, { recursive: true });
 
   const now = new Date().toISOString();
   const today = now.split("T")[0];
@@ -129,7 +153,8 @@ async function syncEntry(page, fallbackDate) {
 
   const blocks = await n2m.pageToMarkdown(page.id);
   const result = n2m.toMarkdownString(dropToggles(blocks));
-  const body = (typeof result === "string" ? result : result.parent) || "";
+  const markdown = (typeof result === "string" ? result : result.parent) || "";
+  const body = await saveImages(markdown, notionId);
 
   const fields = { title, notion_id: notionId };
   let dir;
@@ -177,6 +202,47 @@ function dropToggles(blocks) {
   return blocks
     .filter((block) => block.type !== "toggle")
     .map((block) => ({ ...block, children: dropToggles(block.children || []) }));
+}
+
+// --- Pictures -------------------------------------------------------------
+
+/**
+ * Download every picture this page uses and point the markdown at the copies.
+ *
+ * The page's picture folder is cleared and refilled each time, so a picture you
+ * delete in Notion also disappears from the site. Everything is downloaded
+ * before anything is cleared: if a download fails, the sync for this page
+ * stops, the live page keeps its old pictures, and the next run tries again.
+ */
+async function saveImages(markdown, notionId) {
+  const ids = [...new Set([...markdown.matchAll(/\(notion-image:([0-9a-f]+)\)/g)].map((m) => m[1]))];
+
+  const files = [];
+  for (const id of ids) {
+    const link = notionImageLinks.get(id);
+    const res = await fetch(link);
+    if (!res.ok) throw new Error(`could not download a picture (HTTP ${res.status})`);
+    const name = `${id}${imageExtension(link, res.headers.get("content-type"))}`;
+    files.push({ id, name, data: Buffer.from(await res.arrayBuffer()) });
+  }
+
+  const dir = path.join(IMAGES, notionId);
+  fs.rmSync(dir, { recursive: true, force: true });
+  for (const { id, name, data } of files) {
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, name), data);
+    markdown = markdown.split(`(notion-image:${id})`).join(`(/assets/images/${notionId}/${name})`);
+    console.log(`  saved picture ${name}`);
+  }
+  return markdown;
+}
+
+/** ".png", ".jpg" and so on — from the file name in the link, or failing that the file type. */
+function imageExtension(link, contentType) {
+  const fromName = path.extname(new URL(link).pathname).toLowerCase();
+  if (/^\.(png|jpe?g|gif|webp|avif|svg)$/.test(fromName)) return fromName;
+  const types = { "image/png": ".png", "image/jpeg": ".jpg", "image/gif": ".gif", "image/webp": ".webp", "image/avif": ".avif", "image/svg+xml": ".svg" };
+  return types[(contentType || "").split(";")[0]] || ".jpg";
 }
 
 /**
@@ -281,6 +347,7 @@ async function removeUnpublished(justSynced) {
     if (justSyncedIds.has(id)) continue; // published moments ago
     if (known.has(id) && !pulled.has(id)) continue; // in Notion, not pulled
     fs.unlinkSync(file);
+    fs.rmSync(path.join(IMAGES, id), { recursive: true, force: true }); // and its pictures
     console.log(`Unpublished: removed ${path.relative(__dirname, file)}`);
     removed++;
   }
