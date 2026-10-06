@@ -1,30 +1,20 @@
 ---
 title: "Welcome to My Blog"
+notion_id: "3c76227653ba81bab352d44cc33348f8"
 slug: "welcome-to-my-blog"
-date: "2025-06-20T00:00:00.000Z"
-tags: ["general", "welcome", "introduction"]
+date: "2025-06-20"
 ---
 
-I'm excited to launch this blog as a space to share my journey as a developer and the lessons I learn along the way.
+All the writing on this website is 100% written by me, using words that come from my own brain, put together in whatever order I decide, and typed out by my own fingers.
 
-## What You Can Expect
 
-Here are some topics I plan to cover:
+I might use AI to help me explore ideas.
 
-- **Development Tutorials**: Step-by-step guides for tools and technologies I work with
-- **Project Deep-Dives**: Behind-the-scenes looks at my projects, including challenges and solutions
-- **Technology Insights**: Thoughts on emerging trends and tools in the development world
-- **Problem-Solving**: My approach to tackling complex technical challenges
 
-## A Bit About Me
+I might use AI to do research.
 
-I'm passionate about creating solutions that make a difference. Whether it's building tools to streamline workflows or creating applications that solve real-world problems, I love the process of turning ideas into working code.
 
-## Let's Connect
+But I’m not going to use AI for writing, no matter how tempting it is.
 
-I'd love to hear from you! Feel free to connect with me on:
 
-- [LinkedIn](https://linkedin.com/in/jillmetcalfe)
-- [GitHub](https://github.com/jillmetcalfe)
-
-Thanks for stopping by, and I hope you find the content helpful and engaging!
+Writing is important to me, and writing is hard for me. If it wasn’t hard, it wouldn’t be important.
