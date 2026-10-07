@@ -99,6 +99,13 @@ to use yet. Works on every page type.
 same but is a different kind of block, and it is *not* skipped — everything under it
 would be published.
 
+### Search description
+
+The short text Google and link previews show under a page's title. Fill in **Search
+description** in Notion to choose it yourself; leave it empty and the site uses the first
+words of the page. The one on the **Home** entry describes the whole site, and is also
+used for the blog list and anything without words of its own yet.
+
 ### Pictures
 
 Paste or drag a picture into the Notion page, like you would anywhere else in Notion.

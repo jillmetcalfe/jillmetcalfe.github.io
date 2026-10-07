@@ -68,6 +68,10 @@ If a change contradicts DESIGN.md, update DESIGN.md first and say why.
 - The Notion automation fires on `Ready to publish` only. That's deliberate — firing on
   `Scheduled` would trigger a build with nothing to publish. Scheduled entries are picked
   up by the half-hourly run in `publish.yml`, which is why that schedule must stay.
+- `Search description` (text) becomes `description` in frontmatter and the page's meta
+  description; empty falls back to the page's first words. Home's is the site-wide one.
+  **Never hard-code descriptions or other prose in build.js** — the site is 100%
+  written by Jill
 - Toggle blocks are stripped during sync — that's how Jill keeps private notes in a page
 - Uploaded pictures are downloaded by `sync.js` to `assets/images/<notion_id>/` and committed
   by `publish.yml` — Notion's file links expire after an hour. They go through a

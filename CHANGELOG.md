@@ -6,6 +6,12 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ## 2026-10-07
 
+- **New `Search description` field in Notion.** It's the short text Google and link
+  previews show for a page. Leave it empty and the site uses the first words of the page
+  instead. The one on your **Home** entry is the description for the whole site — the
+  feed, the blog list, and any page that has no words of its own yet.
+- **The made-up descriptions are gone.** "Writing about building things, automation,
+  and Notion", "notes and thoughts" and the rest were written by the code, not by you.
 - **Removed the last of the old placeholder pages:** About, the Jekyll blog post, and
   the Atomic Habits and Pragmatic Programmer book notes. They were copied over from the
   old Jekyll site and never came from Notion, so deleting them in Notion couldn't take

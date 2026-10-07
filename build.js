@@ -17,10 +17,19 @@ const { marked } = require("marked");
 
 const SITE = {
   title: "Jill Metcalfe",
-  description: "Writing about building things, automation, and Notion.",
   url: "https://jillmetcalfe.com",
   author: "Jill Metcalfe",
 };
+
+// Every description on the site — what Google and link previews show — is written
+// by Jill. It comes from the "Search description" field in Notion, or, when that's
+// empty, the first words of the page itself. Nothing here makes one up.
+//
+// The site-wide one, used by the feed, the blog list and any page without its own,
+// comes from the Home entry. Filled in by build() once the home page has been read.
+let siteDescription = "";
+
+const describe = (page) => (page && (page.description || excerpt(page.body, 30))) || "";
 
 const ROOT = __dirname;
 const CONTENT = path.join(ROOT, "content");
@@ -121,7 +130,7 @@ function writePage({ urlPath, title, description, content, ogtype = "website" })
 
   const html = TEMPLATE.replace(/\{\{title\}\}/g, escapeHtml(fullTitle))
     .replace(/\{\{sitetitle\}\}/g, escapeHtml(SITE.title))
-    .replace(/\{\{description\}\}/g, escapeHtml(description || SITE.description))
+    .replace(/\{\{description\}\}/g, escapeHtml(description || siteDescription))
     .replace(/\{\{canonical\}\}/g, SITE.url + urlPath)
     .replace(/\{\{ogtype\}\}/g, ogtype)
     .replace(/\{\{year\}\}/g, new Date().getFullYear())
@@ -158,7 +167,7 @@ function postRow(post) {
 
 function buildHome(posts) {
   const home = readPage("home");
-  const intro = home ? renderMarkdown(home.body) : `<p class="lead">${escapeHtml(SITE.description)}</p>`;
+  const intro = home ? renderMarkdown(home.body) : "";
   const recent = posts.slice(0, 5);
 
   const list = recent.length
@@ -172,7 +181,7 @@ ${recent.map(postCard).join("\n")}
   writePage({
     urlPath: "/",
     title: SITE.title,
-    description: SITE.description,
+    description: siteDescription,
     content: `      <div class="prose">
 ${intro}
       </div>
@@ -190,7 +199,7 @@ ${posts.map(postRow).join("\n")}
   writePage({
     urlPath: "/blog/",
     title: "Blog",
-    description: `Everything ${SITE.author} has written.`,
+    description: siteDescription,
     content: `      <div class="page-header">
         <h1>Blog</h1>
       </div>
@@ -204,7 +213,7 @@ function buildPosts(posts) {
     writePage({
       urlPath: `/blog/${post.slug}/`,
       title: post.title,
-      description: excerpt(post.body, 30),
+      description: describe(post),
       ogtype: "article",
       content: `      <article>
         <div class="page-header">
@@ -259,7 +268,7 @@ ${items}
   writePage({
     urlPath: "/bookshelf/",
     title: "Bookshelf",
-    description: "What I'm reading, have read, and plan to read.",
+    description: describe(intro),
     content: `      <div class="page-header">
         <h1>Bookshelf</h1>
       </div>
@@ -277,7 +286,8 @@ ${intro ? `      <div class="prose">\n${renderMarkdown(intro.body)}\n      </div
     writePage({
       urlPath: `/bookshelf/${book.slug}/`,
       title: book.title,
-      description: `${book.title}${book.author ? ` by ${book.author}` : ""} — notes and thoughts.`,
+      // A book with no notes yet falls back to just its title and author.
+      description: describe(book) || `${book.title}${book.author ? ` by ${book.author}` : ""}`,
       ogtype: "article",
       content: `      <article>
         <div class="page-header">
@@ -305,7 +315,7 @@ function buildStandalonePages() {
     writePage({
       urlPath: `/${name}/`,
       title: page.title || name.charAt(0).toUpperCase() + name.slice(1),
-      description: excerpt(page.body, 30),
+      description: describe(page),
       content: `      <div class="page-header">
         <h1>${escapeHtml(page.title || name)}</h1>
         ${updated}
@@ -337,8 +347,7 @@ function buildFeed(posts) {
   const feed = `<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>${escapeHtml(SITE.title)}</title>
-  <subtitle>${escapeHtml(SITE.description)}</subtitle>
-  <link href="${SITE.url}/feed.xml" rel="self"/>
+${siteDescription ? `  <subtitle>${escapeHtml(siteDescription)}</subtitle>\n` : ""}  <link href="${SITE.url}/feed.xml" rel="self"/>
   <link href="${SITE.url}/"/>
   <id>${SITE.url}/</id>
   <updated>${updated}</updated>
@@ -389,6 +398,8 @@ function build() {
     .sort((a, b) => toDate(b.date) - toDate(a.date));
 
   const books = readCollection("books");
+
+  siteDescription = describe(readPage("home"));
 
   buildHome(posts);
   buildBlogIndex(posts);

@@ -157,6 +157,7 @@ async function syncEntry(page, fallbackDate) {
   const body = await saveImages(markdown, notionId);
 
   const fields = { title, notion_id: notionId };
+  addIf(fields, "description", getText(page, "Search description"));
   let dir;
   let filename;
 
@@ -390,6 +391,11 @@ function getPageType(page) {
 function getSelect(page, name) {
   const prop = page.properties[name];
   return (prop && prop.select && prop.select.name) || null;
+}
+
+function getText(page, name) {
+  const prop = page.properties[name];
+  return prop && prop.rich_text ? prop.rich_text.map((t) => t.plain_text).join("").trim() : "";
 }
 
 function getDateProp(page, name) {
