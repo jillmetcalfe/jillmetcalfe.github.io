@@ -10,7 +10,7 @@ Future ideas and improvements for the site. Items are marked ✅ with a date whe
 - ✅ 2026-02-17 Notion as CMS — Use Notion API + GitHub Actions to auto-publish posts. Approach: create a Notion database for posts, write a script to pull content via the API and convert to Jekyll markdown, run it via a GitHub Action (scheduled or on-demand). Needs: Notion integration/API key, a posts database in Notion, a conversion script, a GitHub Action workflow.
 - [ ] Bump the GitHub Actions versions. The build warns that `actions/checkout@v4`,
   `actions/setup-node@v4` and `actions/upload-artifact@v4` target Node 20, which
-  GitHub is retiring. Nothing is broken today; they just need moving to `@v5`
+  GitHub is retiring. Nothing is broken today; they just need moving to `@v5` (~10 min)
 - [ ] **Accent colour isn't right yet.** Magenta `#B509AC` (from al-folio) fixed the
   real problem — petrol was only 2.3:1 from the ink, so links read as off-black — but
   it's too hot against the cream paper. Next thing to try: a deeper, less neon magenta
@@ -18,6 +18,7 @@ Future ideas and improvements for the site. Items are marked ✅ with a date whe
   DESIGN.md lists, so it separates from the ink by going lighter instead of more
   saturated. The rule to keep: separate from the ink by hue or lightness, not neither.
   All six alternatives with hexes are in a comment at the top of `style.css`
+  (~20–30 min, mostly Jill looking at options)
 - [ ] **Feed the bookshelf from the Notion Library.** Books are currently typed twice:
   once in the Library, and again as a `Bookshelf` entry in the jillmetcalfe.com
   database with Author / Book Status / Stars / Started / Finished filled in by hand.
@@ -25,11 +26,11 @@ Future ideas and improvements for the site. Items are marked ✅ with a date whe
   which Library database is the source of truth (there's a "Library Updater" page that
   maintains one), how a book gets marked "this one goes on the site" — a checkbox in
   the Library is probably enough — and what happens to the four Bookshelf entries that
-  already exist, since their notes and star ratings shouldn't be lost in the move.
+  already exist, since their notes and star ratings shouldn't be lost in the move. (~2–3 hours)
 - [ ] **Spacing of the finish date on the Bookshelf.** The date above each finished
-  book needs adjusting. (Added 2026-10-07, the same day the dates went in.)
+  book needs adjusting. (Added 2026-10-07, the same day the dates went in.) (~10 min)
 - [ ] **Author pages.** Click an author's name on the Bookshelf and see the list of
-  their books Jill has read.
+  their books Jill has read. (~30–45 min)
 - [ ] **Internal links via Notion mentions.** Today an @-mention or "Link to page" in
   Notion becomes a `notion.so` link, which visitors can't open (notion-to-md writes
   `https://www.notion.so/<id>`). Fix in `build.js`, not `sync.js`: map each
@@ -47,6 +48,6 @@ Future ideas and improvements for the site. Items are marked ✅ with a date whe
   expose both sets or derive one; a typo'd hex or font name must fall back to the current
   value, not break the site; check accent contrast against paper and warn in the build
   log (DESIGN.md rules); and DESIGN.md stops being the only record of the colours —
-  decide which one wins. Bigger than the others (~1.5–2 hours)
+  decide which one wins. (~1.5–2 hours)
 - ✅ 2026-08-24 Now page via Notion — syncs from Notion like About. (Wayback Machine auto-archiving still to do: `- [ ] Archive the previous Now page to the Wayback Machine before overwriting`)
 - ✅ 2026-08-24 Update Ruby for local site testing — no longer needed, Ruby and Jekyll are gone. Preview with `npm start`
