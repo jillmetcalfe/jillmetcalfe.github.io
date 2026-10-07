@@ -6,6 +6,8 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ## 2026-10-07
 
+- **Finished books show the date you finished them** on the Bookshelf, just above the
+  title. It comes from the `Finished` date in Notion; a book without one shows no date.
 - **New `Search description` field in Notion.** It's the short text Google and link
   previews show for a page. Leave it empty and the site uses the first words of the page
   instead. The one on your **Home** entry is the description for the whole site — the

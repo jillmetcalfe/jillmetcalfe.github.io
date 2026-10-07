@@ -251,7 +251,12 @@ function buildBookshelf(books) {
       .map((book) => {
         const stars = book.stars ? ` <span class="stars">${"★".repeat(Number(book.stars))}</span>` : "";
         const author = book.author ? ` <span class="book-author">by ${escapeHtml(book.author)}</span>` : "";
-        return `          <li><a class="book-title" href="/bookshelf/${book.slug}/">${escapeHtml(book.title)}</a>${author}${stars}</li>`;
+        // Finished books lead with the date they were finished, like posts on the blog list.
+        const finished =
+          status === "Finished" && book.finished
+            ? `<time class="meta" datetime="${escapeHtml(book.finished)}">${formatDate(book.finished)}</time>`
+            : "";
+        return `          <li>${finished}<a class="book-title" href="/bookshelf/${book.slug}/">${escapeHtml(book.title)}</a>${author}${stars}</li>`;
       })
       .join("\n");
 
