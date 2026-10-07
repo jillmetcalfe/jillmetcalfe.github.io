@@ -5,6 +5,7 @@ slug: "ancillary-justice"
 author: "Ann Leckie"
 status: "Finished"
 started: "2026-01-25"
+finished: "2026-03-01"
 tags: ["Sci-Fi", "Fiction"]
 ---
 
