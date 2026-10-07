@@ -37,5 +37,16 @@ Future ideas and improvements for the site. Items are marked ✅ with a date whe
   `notion_id`, at build time, so renaming a page never breaks links to it. A link to an
   entry that isn't published renders as plain text. Workaround until then: paste the
   site address as a normal link. (~30–45 min)
+- [ ] **Site styling editable from Notion.** Jill wants to change a colour or a font
+  from Notion, not code. Likely shape: one "Site style" entry (or a small settings
+  database) listing each setting — paper, ink, ink-soft, accent, accent-dark, accent-tint,
+  heading / body / code font — with its value. `sync.js` writes them to a file, and
+  `build.js` puts them into the `:root` variables in `style.css` and the Google Fonts
+  link in `templates/base.html` (font names must be Google Fonts, and that URL has to be
+  rebuilt to match). Things to settle first: dark mode has its own colours, so either
+  expose both sets or derive one; a typo'd hex or font name must fall back to the current
+  value, not break the site; check accent contrast against paper and warn in the build
+  log (DESIGN.md rules); and DESIGN.md stops being the only record of the colours —
+  decide which one wins. Bigger than the others (~1.5–2 hours)
 - ✅ 2026-08-24 Now page via Notion — syncs from Notion like About. (Wayback Machine auto-archiving still to do: `- [ ] Archive the previous Now page to the Wayback Machine before overwriting`)
 - ✅ 2026-08-24 Update Ruby for local site testing — no longer needed, Ruby and Jekyll are gone. Preview with `npm start`
