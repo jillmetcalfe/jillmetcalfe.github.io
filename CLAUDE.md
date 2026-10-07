@@ -46,9 +46,9 @@ If a change contradicts DESIGN.md, update DESIGN.md first and say why.
     Notion ready.** A value `sync.js` doesn't recognise falls through to the blog-post
     branch and gets published as a post.
 - `Status` gates publishing, and two values mean "publish this":
-  - `Ready to publish` — goes out on the next run, whatever `Date` says
-  - `Scheduled` — held back until `Date` has passed, then goes out
-  Both are flipped to `Published` once synced. `Date` is the date shown on the post;
+  - `Ready to publish` — goes out on the next run, whatever `Publication date` says
+  - `Scheduled` — held back until `Publication date` has passed, then goes out
+  Both are flipped to `Published` once synced. `Publication date` is the date shown on the post;
   it only gates publishing for `Scheduled` entries.
 - **Unpublishing:** `Unpublished` is the only status that takes a page down. Move an
   entry to `Unpublished` — or delete the Notion page — and `sync.js` removes its

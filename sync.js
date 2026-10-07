@@ -34,6 +34,10 @@ const databaseId = process.env.NOTION_DATABASE_ID;
 
 const CONTENT = path.join(__dirname, "content");
 
+// The Notion date shown on each post. It must match the property name in Notion
+// exactly — rename it there, rename it here. (It was called "Date" until 2026-10-07.)
+const PUBLICATION_DATE = "Publication date";
+
 // Pictures pasted into Notion are downloaded here, one folder per Notion page.
 // build.js copies assets/ into the site, so they show at /assets/images/…
 const IMAGES = path.join(__dirname, "assets", "images");
@@ -81,15 +85,15 @@ async function main() {
 
   // Two ways an entry can be due:
   //
-  //   "Ready to publish"  — go out now, whatever the Date says. The Date is just
+  //   "Ready to publish"  — go out now, whatever the Publication date says. The Date is just
   //                         the date shown on the post.
-  //   "Scheduled"         — wait until the Date has passed, then go out. Picked up
+  //   "Scheduled"         — wait until the Publication date has passed, then go out. Picked up
   //                         by the half-hourly run in publish.yml, not by the
   //                         Notion automation (which only fires on "Ready to
   //                         publish", so scheduling something doesn't kick off a
   //                         build that has nothing to do).
   //
-  // A "Scheduled" entry with no Date at all has nothing to wait for, so it goes
+  // A "Scheduled" entry with no Publication date at all has nothing to wait for, so it goes
   // out on the next run.
   //
   // The two Scheduled branches are spelled out separately rather than as one
@@ -101,8 +105,8 @@ async function main() {
     filter: {
       or: [
         { property: "Status", status: { equals: "Ready to publish" } },
-        { and: [scheduled, { property: "Date", date: { on_or_before: now } }] },
-        { and: [scheduled, { property: "Date", date: { is_empty: true } }] },
+        { and: [scheduled, { property: PUBLICATION_DATE, date: { on_or_before: now } }] },
+        { and: [scheduled, { property: PUBLICATION_DATE, date: { is_empty: true } }] },
       ],
     },
   });
@@ -127,7 +131,7 @@ async function main() {
         Status: { status: { name: "Published" } },
         "Last Updated": { date: { start: publishedAt } },
       };
-      if (!hadDate) properties.Date = { date: { start: publishedAt } };
+      if (!hadDate) properties[PUBLICATION_DATE] = { date: { start: publishedAt } };
       await notion.pages.update({ page_id: pageId, properties });
       console.log(`Marked "${title}" as Published in Notion.`);
     } catch (err) {
@@ -369,7 +373,7 @@ function getTitle(page) {
 }
 
 function getDate(page) {
-  const prop = page.properties.Date;
+  const prop = page.properties[PUBLICATION_DATE];
   return prop && prop.date && prop.date.start ? prop.date.start : null;
 }
 

@@ -26,5 +26,9 @@ Future ideas and improvements for the site. Items are marked ✅ with a date whe
   maintains one), how a book gets marked "this one goes on the site" — a checkbox in
   the Library is probably enough — and what happens to the four Bookshelf entries that
   already exist, since their notes and star ratings shouldn't be lost in the move.
+- [ ] **Spacing of the finish date on the Bookshelf.** The date above each finished
+  book needs adjusting. (Added 2026-10-07, the same day the dates went in.)
+- [ ] **Author pages.** Click an author's name on the Bookshelf and see the list of
+  their books Jill has read.
 - ✅ 2026-08-24 Now page via Notion — syncs from Notion like About. (Wayback Machine auto-archiving still to do: `- [ ] Archive the previous Now page to the Wayback Machine before overwriting`)
 - ✅ 2026-08-24 Update Ruby for local site testing — no longer needed, Ruby and Jekyll are gone. Preview with `npm start`

@@ -24,11 +24,11 @@ later. You never have to touch code to publish.
 Notion flips the Status to `Published` by itself once it's done.
 
 **To schedule it for later instead:** set **Status** to `Scheduled` and put a future
-date and time in the **Date** field. It will sit and wait, and go out within half an
+date and time in the **Publication date** field. It will sit and wait, and go out within half an
 hour of that moment.
 
-`Ready to publish` means *now*, whatever the Date says. `Scheduled` is the one that
-waits. The **Date** field is otherwise just the date shown on the post.
+`Ready to publish` means *now*, whatever the Publication date says. `Scheduled` is the one that
+waits. The **Publication date** field is otherwise just the date shown on the post.
 
 **If it hasn't appeared:** GitHub repo → **Actions** tab → **Publish** → **Run
 workflow** forces it. You shouldn't need this, but it does no harm.
@@ -40,8 +40,8 @@ workflow** forces it. You shouldn't need this, but it does no harm.
 | `Not started` | Nothing. The robot ignores it |
 | `Draft` | Nothing. Something new you haven't put up yet |
 | `Editing` | Nothing — **it stays on the site** while you rework it. This is the one to use on a page that's already live |
-| `Ready to publish` | Goes out on the next run, whatever the Date says |
-| `Scheduled` | Goes out once the **Date** has passed |
+| `Ready to publish` | Goes out on the next run, whatever the Publication date says |
+| `Scheduled` | Goes out once the **Publication date** has passed |
 | `Published` | It's on the site and up to date. The robot sets this for you — you don't need to |
 | `Unpublished` | Takes it off the site. **This is the only status that does** |
 

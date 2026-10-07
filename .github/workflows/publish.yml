@@ -8,7 +8,7 @@ name: Publish
 #
 # DO NOT DELETE THE 30-MINUTE SCHEDULE, even though (4) makes publishing feel instant.
 # They do different jobs. Scheduled posts — pages marked "Ready to publish" with a
-# future Date — are held back by the date filter in sync.js. The Notion automation
+# future Publication date — are held back by the date filter in sync.js. The Notion automation
 # fires once, at the moment the status changes, when the post is still correctly held
 # back. Nothing fires again. Only this schedule comes back later and publishes it when
 # its date arrives. Remove the schedule and scheduled posts never go out.

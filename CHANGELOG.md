@@ -6,6 +6,9 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ## 2026-10-07
 
+- **The `Date` field in Notion is now called `Publication date`.** The robot has been
+  updated to match. It looks fields up by name, so renaming a field in Notion needs a
+  matching change in `sync.js`.
 - **Finished books show the date you finished them** on the Bookshelf, just above the
   title. It comes from the `Finished` date in Notion; a book without one shows no date.
 - **New `Search description` field in Notion.** It's the short text Google and link
