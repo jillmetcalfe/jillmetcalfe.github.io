@@ -82,6 +82,11 @@ const SINGLE_PAGES = {
 // live address is one click away. Must match `url` in build.js.
 const SITE_URL = "https://jillmetcalfe.com";
 
+// Jill's time zone (Central European, with summer time). "Today" means today
+// where she is, not in London, where the publishing robot keeps its clock.
+// Must match TIME_ZONE in build.js.
+const TIME_ZONE = "Europe/Paris";
+
 async function main() {
   if (!process.env.NOTION_API_KEY || !databaseId) {
     throw new Error("Set NOTION_API_KEY and NOTION_DATABASE_ID before running this.");
@@ -92,7 +97,7 @@ async function main() {
   fs.mkdirSync(IMAGES, { recursive: true });
 
   const now = new Date().toISOString();
-  const today = now.split("T")[0];
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: TIME_ZONE }).format(new Date()); // YYYY-MM-DD
 
   console.log("Looking for entries marked 'Ready to publish' or due 'Scheduled'…");
 

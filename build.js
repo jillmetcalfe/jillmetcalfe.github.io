@@ -56,11 +56,26 @@ const slugify = (s = "") =>
   String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "untitled";
 
 /** "2026-02-18" -> "18 February 2026" */
+// Jill's time zone (Central European, with summer time). A date with a time on it,
+// like a Publication date of 6 October 23:48 London time, is shown as the day it
+// was where she is: 7 October. A plain date with no time is shown exactly as
+// written. Must match TIME_ZONE in sync.js.
+const TIME_ZONE = "Europe/Paris";
+
+const isPlainDate = (value) => typeof value === "string" && value.length === 10;
+
 function formatDate(value) {
   if (!value) return "";
-  const d = value instanceof Date ? value : new Date(String(value).length === 10 ? value + "T00:00:00Z" : value);
+  const d = value instanceof Date ? value : new Date(isPlainDate(value) ? value + "T00:00:00Z" : value);
   if (isNaN(d)) return "";
-  return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  const timeZone = isPlainDate(value) ? "UTC" : TIME_ZONE;
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone });
+}
+
+/** The day something happened where Jill is, as YYYY-MM-DD, so two dates can be compared. */
+function dayOf(value) {
+  if (isPlainDate(value)) return value;
+  return new Intl.DateTimeFormat("en-CA", { timeZone: TIME_ZONE }).format(toDate(value));
 }
 
 function toDate(value) {
@@ -72,8 +87,7 @@ function toDate(value) {
 /** True when a post was republished on a later day than it was first published. */
 function updatedLater(post) {
   if (!post.updated) return false;
-  const day = (value) => toDate(value).toISOString().slice(0, 10);
-  return day(post.updated) > day(post.date);
+  return dayOf(post.updated) > dayOf(post.date);
 }
 
 /** First ~40 words of the body, for list pages and meta descriptions. */

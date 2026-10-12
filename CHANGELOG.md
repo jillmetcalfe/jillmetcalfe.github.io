@@ -11,6 +11,8 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
   Now page looked stuck on 6 October.
 - **Blog posts show "Updated" when you republish one on a later day.** The original
   publication date stays. A fix made the same day it went out doesn't count.
+- **Dates follow Central European time**, where you are, not London time. Publishing
+  just after midnight now counts as the new day.
 
 ## 2026-10-12
 
