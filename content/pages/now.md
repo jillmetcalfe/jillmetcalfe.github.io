@@ -7,13 +7,13 @@ updated: "2026-10-06"
 ## What I’m currently doing when I should be working
 
 
-Building This Website
+#### Building This Website
 
 
 I bought the jillmetcalfe.com domain in 1999 and since then it’s just been parked, waiting for me to decide what it’s _for_. Well, turns out it doesn’t really need to be _for_ anything.
 
 
-Playing Clues by Sam
+#### Playing Clues by Sam
 
 
 [https://cluesbysam.com](https://cluesbysam.com/)
@@ -43,13 +43,13 @@ Once I’ve finished the [one I’m currently reading](https://jillmetcalfe.com/
 ## What am I learning?
 
 
-Ultraspeaking
+#### Ultraspeaking
 
 
 I’m working my way through the [Ultraspeaking](http://ultraspeaking.com/) courses – currently on Fundamentals 2. When I started out, I remember saying that my main problem was that, whenever I had to perform in front of an audience, 90% of my brain would fill up with “AAAAAAAAAAGH!!!” leaving me with only 10% to operate basic life support functions and give the presentation. I realised recently that that feeling has almost entirely disappeared. It’s like magic. ✨
 
 
-Irish fiddle
+#### Irish fiddle
 
 
 When I’m old I want to be able to play tunes in a pub with other musicians. So I’m starting now.
