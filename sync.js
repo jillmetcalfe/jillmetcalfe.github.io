@@ -58,6 +58,15 @@ n2m.setCustomTransformer("image", async (block) => {
   return `![${caption}](notion-image:${id})`;
 });
 
+// Notion added Heading 4 after notion-to-md 3.1.9 was written, so the library
+// doesn't recognise it and writes the heading out as a plain paragraph. Render
+// its text the way a paragraph would be (keeping bold, links and so on) and put
+// the heading marker in front.
+n2m.setCustomTransformer("heading_4", async (block) => {
+  const text = await n2m.blockToMarkdown({ ...block, type: "paragraph", paragraph: block.heading_4 });
+  return `#### ${text.trim()}`;
+});
+
 // Which Page values are one-of-a-kind pages rather than lists of entries.
 const SINGLE_PAGES = {
   About: "about",
@@ -68,6 +77,10 @@ const SINGLE_PAGES = {
   // "Bookshelf", which is what an individual book uses.
   "Bookshelf intro": "bookshelf",
 };
+
+// Written into each entry's URL property in Notion when it's published, so the
+// live address is one click away. Must match `url` in build.js.
+const SITE_URL = "https://jillmetcalfe.com";
 
 async function main() {
   if (!process.env.NOTION_API_KEY || !databaseId) {
@@ -125,11 +138,12 @@ async function main() {
 
   // Mark everything that made it as Published, and stamp the time.
   const publishedAt = new Date().toISOString();
-  for (const { pageId, title, hadDate } of synced) {
+  for (const { pageId, title, hadDate, url } of synced) {
     try {
       const properties = {
         Status: { status: { name: "Published" } },
         "Last Updated": { date: { start: publishedAt } },
+        URL: { url },
       };
       if (!hadDate) properties[PUBLICATION_DATE] = { date: { start: publishedAt } };
       await notion.pages.update({ page_id: pageId, properties });
@@ -164,11 +178,13 @@ async function syncEntry(page, fallbackDate) {
   addIf(fields, "description", getText(page, "Search description"));
   let dir;
   let filename;
+  let sitePath;
 
   if (pageType === "Bookshelf") {
     dir = path.join(CONTENT, "books");
     filename = slugify(title);
     fields.slug = filename;
+    sitePath = `/bookshelf/${filename}/`;
     addIf(fields, "author", getSelect(page, "Author"));
     addIf(fields, "status", getSelect(page, "Book Status"));
     addIf(fields, "stars", getSelect(page, "Stars"));
@@ -178,11 +194,13 @@ async function syncEntry(page, fallbackDate) {
   } else if (SINGLE_PAGES[pageType]) {
     dir = path.join(CONTENT, "pages");
     filename = SINGLE_PAGES[pageType];
+    sitePath = filename === "home" ? "/" : `/${filename}/`;
     fields.updated = date.split("T")[0];
   } else {
     dir = path.join(CONTENT, "posts");
     filename = slugify(title);
     fields.slug = filename;
+    sitePath = `/blog/${filename}/`;
     fields.date = date;
     if (tags.length) fields.tags = tags;
   }
@@ -197,7 +215,7 @@ async function syncEntry(page, fallbackDate) {
   fs.writeFileSync(file, `---\n${toYaml(fields)}---\n\n${body.trim()}\n`, "utf-8");
   console.log(`  wrote ${path.relative(__dirname, file)}`);
 
-  return { pageId: page.id, title, hadDate };
+  return { pageId: page.id, title, hadDate, url: SITE_URL + sitePath };
 }
 
 // --- Content filters ------------------------------------------------------

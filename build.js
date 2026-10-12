@@ -84,9 +84,34 @@ function excerpt(markdown, words = 40) {
   return parts.length > words ? parts.slice(0, words).join(" ") + "…" : parts.join(" ");
 }
 
+// --- Links between pages ---------------------------------------------------
+//
+// An @-mention or "Link to page" in Notion arrives as a link to Notion itself
+// (notion.so/<id>, app.notion.com/p/<id>, or just /p/<id>), which visitors
+// can't open. Every content file records the Notion page it came from as
+// notion_id, so those links can be pointed at the right page on this site
+// instead. It's done here, at build time, so renaming a page never breaks
+// links to it. A link to something that isn't on the site becomes plain text.
+
+const pageAddresses = new Map(); // notion_id -> address on this site, e.g. /bookshelf/
+
+function rememberAddress(page, urlPath) {
+  if (page && page.notion_id) pageAddresses.set(String(page.notion_id).replace(/-/g, ""), urlPath);
+}
+
+const NOTION_LINK =
+  /(?<!!)\[([^\]]*)\]\((?:https?:\/\/(?:www\.|app\.)?notion\.(?:so|com)\/(?:[^)\s]*?[-/])?|\/p\/)([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})(?:[?#][^)\s]*)?\)/g;
+
+function fixNotionLinks(md) {
+  return md.replace(NOTION_LINK, (link, text, id) => {
+    const address = pageAddresses.get(id.replace(/-/g, ""));
+    return address ? `[${text}](${address})` : text;
+  });
+}
+
 /** Wide tables get their own scroll container so the page never scrolls sideways. */
 function renderMarkdown(md) {
-  return marked.parse(md).replace(/<table>/g, '<div class="table-scroll"><table>').replace(/<\/table>/g, "</table></div>");
+  return marked.parse(fixNotionLinks(md)).replace(/<table>/g, '<div class="table-scroll"><table>').replace(/<\/table>/g, "</table></div>");
 }
 
 // --- Reading content ------------------------------------------------------
@@ -405,6 +430,13 @@ function build() {
   const books = readCollection("books");
 
   siteDescription = describe(readPage("home"));
+
+  // Before anything is rendered, so every page can link to every other.
+  posts.forEach((post) => rememberAddress(post, `/blog/${post.slug}/`));
+  books.forEach((book) => rememberAddress(book, `/bookshelf/${book.slug}/`));
+  ["about", "now", "projects"].forEach((name) => rememberAddress(readPage(name), `/${name}/`));
+  rememberAddress(readPage("home"), "/");
+  rememberAddress(readPage("bookshelf"), "/bookshelf/");
 
   buildHome(posts);
   buildBlogIndex(posts);

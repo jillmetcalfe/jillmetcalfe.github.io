@@ -31,13 +31,6 @@ Future ideas and improvements for the site. Items are marked ✅ with a date whe
   book needs adjusting. (Added 2026-10-07, the same day the dates went in.) (~10 min)
 - [ ] **Author pages.** Click an author's name on the Bookshelf and see the list of
   their books Jill has read. (~30–45 min)
-- [ ] **Internal links via Notion mentions.** Today an @-mention or "Link to page" in
-  Notion becomes a `notion.so` link, which visitors can't open (notion-to-md writes
-  `https://www.notion.so/<id>`). Fix in `build.js`, not `sync.js`: map each
-  `notion.so/<id>` link to the current site address of the content file with that
-  `notion_id`, at build time, so renaming a page never breaks links to it. A link to an
-  entry that isn't published renders as plain text. Workaround until then: paste the
-  site address as a normal link. (~30–45 min)
 - [ ] **Site styling editable from Notion.** Jill wants to change a colour or a font
   from Notion, not code. Likely shape: one "Site style" entry (or a small settings
   database) listing each setting — paper, ink, ink-soft, accent, accent-dark, accent-tint,

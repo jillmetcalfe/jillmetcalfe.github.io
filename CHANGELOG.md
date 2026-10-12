@@ -4,6 +4,16 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ---
 
+## 2026-10-12
+
+- **@-mentions and "Link to page" in Notion now link to the page on this site.** Before,
+  they sent visitors to Notion, which they can't open. If the page you link to isn't
+  published, the words show as plain text with no link, and the publish no longer fails.
+- **Heading 4 from Notion now shows as a heading.** It used to come through as an
+  ordinary paragraph.
+- **New `URL` field in Notion.** Each time something is published, the robot fills in
+  its address on the site, so the live page is one click away.
+
 ## 2026-10-07
 
 - **The `Date` field in Notion is now called `Publication date`.** The robot has been
