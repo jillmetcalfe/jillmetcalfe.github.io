@@ -37,7 +37,7 @@ See [Bookshelf](https://app.notion.com/p/3c76227653ba810386f3f0c7780ffd4a) but I
 I recently tried rereading one of my favourite sci-fi series, but the first book I picked up was full of casual misogyny that hadn’t even registered the first time around. Turns out I can’t stomach it any more. Sorry Iain M. Banks.
 
 
-Once I’ve finished the [one I’m currently reading](/p/3f16227653ba810d9573cd1d0c94c6c0) I’m going to give Dombey & Son a go. I love Dickens but haven’t ready any for years so it will be interesting to see if I can still hack it.
+Once I’ve finished the [one I’m currently reading](https://jillmetcalfe.com/bookshelf/a-memory-called-empire/) I’m going to give Dombey & Son a go. I love Dickens but haven’t ready any for years so it will be interesting to see if I can still hack it.
 
 
 ## What am I learning?
