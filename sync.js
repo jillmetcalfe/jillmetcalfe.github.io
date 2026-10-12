@@ -159,10 +159,10 @@ async function main() {
   await removeUnpublished(synced.map((s) => s.pageId.replace(/-/g, "")));
 }
 
-async function syncEntry(page, fallbackDate) {
+async function syncEntry(page, today) {
   const title = getTitle(page);
   const hadDate = !!getDate(page);
-  const date = getDate(page) || fallbackDate;
+  const date = getDate(page) || today;
   const tags = getTags(page);
   const pageType = getPageType(page);
   const notionId = page.id.replace(/-/g, "");
@@ -195,13 +195,17 @@ async function syncEntry(page, fallbackDate) {
     dir = path.join(CONTENT, "pages");
     filename = SINGLE_PAGES[pageType];
     sitePath = filename === "home" ? "/" : `/${filename}/`;
-    fields.updated = date.split("T")[0];
+    // The day it was last published, not the Publication date. That date is
+    // set once, the first time a page goes out, so a page like Now would
+    // otherwise say it hasn't changed since then.
+    fields.updated = today;
   } else {
     dir = path.join(CONTENT, "posts");
     filename = slugify(title);
     fields.slug = filename;
     sitePath = `/blog/${filename}/`;
     fields.date = date;
+    fields.updated = today; // shown as "Updated" only if it's a later day than date
     if (tags.length) fields.tags = tags;
   }
 

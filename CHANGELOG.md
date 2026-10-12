@@ -4,6 +4,14 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ---
 
+## 2026-10-13
+
+- **Now, About and Projects say when they were last published.** "Last updated" used to
+  show the `Publication date`, which is only set the first time a page goes out, so the
+  Now page looked stuck on 6 October.
+- **Blog posts show "Updated" when you republish one on a later day.** The original
+  publication date stays. A fix made the same day it went out doesn't count.
+
 ## 2026-10-12
 
 - **@-mentions and "Link to page" in Notion now link to the page on this site.** Before,

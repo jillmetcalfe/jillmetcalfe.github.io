@@ -69,6 +69,13 @@ function toDate(value) {
   return isNaN(d) ? new Date(0) : d;
 }
 
+/** True when a post was republished on a later day than it was first published. */
+function updatedLater(post) {
+  if (!post.updated) return false;
+  const day = (value) => toDate(value).toISOString().slice(0, 10);
+  return day(post.updated) > day(post.date);
+}
+
 /** First ~40 words of the body, for list pages and meta descriptions. */
 function excerpt(markdown, words = 40) {
   const text = markdown
@@ -243,7 +250,11 @@ function buildPosts(posts) {
       content: `      <article>
         <div class="page-header">
           <h1>${escapeHtml(post.title)}</h1>
-          <span class="meta"><time datetime="${toDate(post.date).toISOString()}">${formatDate(post.date)}</time></span>
+          <span class="meta"><time datetime="${toDate(post.date).toISOString()}">${formatDate(post.date)}</time>${
+            updatedLater(post)
+              ? ` &middot; Updated <time datetime="${toDate(post.updated).toISOString()}">${formatDate(post.updated)}</time>`
+              : ""
+          }</span>
           ${tags ? `<p class="meta">${tags}</p>` : ""}
         </div>
         <div class="prose">
@@ -368,7 +379,7 @@ function buildFeed(posts) {
     <title>${escapeHtml(post.title)}</title>
     <link href="${SITE.url}/blog/${post.slug}/"/>
     <id>${SITE.url}/blog/${post.slug}/</id>
-    <updated>${toDate(post.date).toISOString()}</updated>
+    <updated>${toDate(updatedLater(post) ? post.updated : post.date).toISOString()}</updated>
     <summary>${escapeHtml(excerpt(post.body, 60))}</summary>
   </entry>`
     )

@@ -1,7 +1,7 @@
 ---
 title: "Now"
 notion_id: "30a6227653ba80a490cee0f46f490ab2"
-updated: "2026-10-06"
+updated: "2026-10-12"
 ---
 
 ## What I’m currently doing when I should be working
