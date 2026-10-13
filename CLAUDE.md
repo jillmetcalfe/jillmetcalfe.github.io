@@ -82,3 +82,21 @@ If a change contradicts DESIGN.md, update DESIGN.md first and say why.
 - Keep `build.js` readable by a non-programmer: comments explain *why*, plain names, no clever tricks
 - Prefer deleting code over adding options
 - Update `CHANGELOG.md` in plain language when something user-visible changes
+
+## Tracking work in Notion
+Jill tracks this project in Notion, not just in the repo. **Every piece of work gets a task**
+— site changes, DNS, email, the business landing page on jillmetcalfe.com — logged as you go,
+not at the end.
+
+- Project page: **jillmetcalfe.com** — `a59d166b60be4e409521263e36a9a484` (in the Projects database)
+- Tasks data source: `collection://0c889c91-8da9-41b5-9cd1-d519ae4cba7b` (🪴 Tasks)
+- Every task sets `Project` to the project page above, so it shows on that page
+- Starting something: create the task (or find the existing one) and set `Status` to `In progress`
+- Finishing: `Status` = `Done`, tick `Done`, set `Done Date` to today
+- `Notes` holds the exact steps or values (record names, settings), so either of you can pick it up cold
+- Steps only Jill can do (Cloudflare dashboard, Google admin, payments) are tasks too — say in
+  `Notes` that they're hers
+- Follow-ups with a date (e.g. "switch DMARC to reject") get a `Due date`
+
+`WISHLIST.md` is still where site ideas live. When one is picked up, give it a Notion task;
+when it's finished, tick it in the wishlist and update `CHANGELOG.md` as usual.
