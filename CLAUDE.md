@@ -93,6 +93,9 @@ not at the end.
 - Every task sets `Project` to the project page above, so it shows on that page
 - Starting something: create the task (or find the existing one) and set `Status` to `In progress`
 - Finishing: `Status` = `Done`, tick `Done`, set `Done Date` to today
+- Also set `Done by` (select: `Jill` / `Claude` / `Both`). `Created by` and `Last edited by`
+  always say Jill, because Claude works through her Notion login, so they can't tell you who did it.
+  `Both` = Claude prepared it, Jill clicked the buttons (or the other way round)
 - `Notes` holds the exact steps or values (record names, settings), so either of you can pick it up cold
 - Steps only Jill can do (Cloudflare dashboard, Google admin, payments) are tasks too — say in
   `Notes` that they're hers
