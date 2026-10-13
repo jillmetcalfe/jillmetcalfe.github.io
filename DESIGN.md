@@ -5,7 +5,7 @@
 > This is the source of truth for how the site looks. `style.css` implements it.
 > Change this file first, then change `style.css` to match.
 
-**Site:** `jillmetcalfe.com` — Jill Metcalfe
+**Site:** `blog.jillmetcalfe.com` — Jill Metcalfe
 **Type:** Personal website + writing/blog. Reading comes first; everything else gets out of the way.
 
 ---

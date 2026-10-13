@@ -1,4 +1,4 @@
-# Project: jillmetcalfe.com
+# Project: blog.jillmetcalfe.com
 
 ## About the user
 - Jill is not a coder — always explain terminal commands, git operations, and technical concepts in plain language
@@ -11,7 +11,7 @@ and no static site generator.** Jekyll was removed on 2026-08-24 — do not rein
 or Ruby, or a CSS framework.
 
 - Content is written in Notion and synced down as markdown
-- Hosted on GitHub Pages at jillmetcalfe.com
+- Hosted on GitHub Pages at blog.jillmetcalfe.com (moved from jillmetcalfe.com on 2026-10-13; jillmetcalfe.com is now Jill's business landing page, and Cloudflare 301-redirects old paths here)
 - Git remote: https://github.com/jillmetcalfe/jillmetcalfe.github.io.git
 - Deployed by `.github/workflows/publish.yml` using GitHub Pages' "GitHub Actions" source
 

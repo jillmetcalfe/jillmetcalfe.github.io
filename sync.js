@@ -80,7 +80,7 @@ const SINGLE_PAGES = {
 
 // Written into each entry's URL property in Notion when it's published, so the
 // live address is one click away. Must match `url` in build.js.
-const SITE_URL = "https://jillmetcalfe.com";
+const SITE_URL = "https://blog.jillmetcalfe.com";
 
 // Jill's time zone (Central European, with summer time). "Today" means today
 // where she is, not in London, where the publishing robot keeps its clock.

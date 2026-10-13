@@ -17,7 +17,7 @@ const { marked } = require("marked");
 
 const SITE = {
   title: "Jill Metcalfe",
-  url: "https://jillmetcalfe.com",
+  url: "https://blog.jillmetcalfe.com",
   author: "Jill Metcalfe",
 };
 

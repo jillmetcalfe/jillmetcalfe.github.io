@@ -8,7 +8,7 @@ A reference for when you come back after time away.
 
 You write in Notion. When you mark something **Ready to publish**, Notion pokes a
 small robot, which saves your writing into this folder as plain text, turns that text
-into web pages, and puts them on jillmetcalfe.com — about **90 seconds**, start to
+into web pages, and puts them on blog.jillmetcalfe.com — about **90 seconds**, start to
 finish. A second robot also checks every 30 minutes, to catch anything scheduled for
 later. You never have to touch code to publish.
 
@@ -152,7 +152,7 @@ If it complains about missing packages, run `npm install` once first.
 | `DESIGN.md` | *Why* the design looks like it does. Change this first, then `style.css` |
 | `templates/base.html` | The wrapper every page sits inside — header, footer, fonts |
 | `site/` | The built website. Thrown away and rebuilt every time. Never edit by hand |
-| `CNAME` | Tells GitHub the site lives at jillmetcalfe.com |
+| `CNAME` | Tells GitHub the site lives at blog.jillmetcalfe.com |
 | `check-links.js` | Catches links pointing at pages that don't exist. Runs on every publish |
 | `.github/workflows/publish.yml` | The robot: sync, build, check, publish |
 

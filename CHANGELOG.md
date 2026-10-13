@@ -6,6 +6,9 @@ All notable changes to the jillmetcalfe.com site, described in plain language.
 
 ## 2026-10-13
 
+- **The site moved to blog.jillmetcalfe.com.** jillmetcalfe.com is becoming the landing
+  page for your business. Every old address redirects to the same page on the new one,
+  so shared links keep working.
 - **Now, About and Projects say when they were last published.** "Last updated" used to
   show the `Publication date`, which is only set the first time a page goes out, so the
   Now page looked stuck on 6 October.
